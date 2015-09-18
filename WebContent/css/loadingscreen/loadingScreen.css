@@ -1,0 +1,14 @@
+#loadingScreen {
+	padding-left: 25px;
+	font-family: Arial, Geneva, Verdana, sans-serif;
+	font-size: 0.8em;
+	overflow-x: hidden;
+	padding-left: 25px;
+	vertical-align: middle;
+	background: url('loading.gif') no-repeat center;
+	background-position: center;
+}
+
+.loadingScreenWindow .ui-dialog-titlebar-close {
+	display: none;
+}

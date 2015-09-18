@@ -1,0 +1,44 @@
+.styled-button-1 {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 0 0;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 0 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 0 0;
+	color: #333;
+	background-color: #FA2;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: none;
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	height: 32px;
+	padding: 2px 10px;
+	text-shadow: #FE6 0 1px 0
+}
+
+
+table.imagetable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+
+table.imagetable th {
+	background: #b5cfd2 url('/images/tables/cell-blue.jpg');
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #999999;
+	color: #000000;
+}
+
+table.imagetable td {
+	background: #dcddc0 url('/images/tables/cell-grey.jpg');
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #999999;
+}

@@ -1,0 +1,15 @@
+.option_block {
+	background: #f4f4f4;
+	width: 220px;
+}
+
+.info {
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	color: #27408B;
+}
+
+
+.checkRefresh {
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	color: #8B6914;
+}
