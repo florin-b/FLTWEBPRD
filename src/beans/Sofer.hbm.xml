@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2015 12:46:34 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="beans.Sofer" table="SOFERI">
+		<id name="codSofer" type="java.lang.String">
+			<column name="COD" />
+			<generator class="assigned" />
+		</id>
+		<property name="numeSofer" type="java.lang.String">
+			<column name="NUME" />
+		</property>
+		<property name="filiala" type="java.lang.String">
+			<column name="FILI" />
+		</property>
+
+	</class>
+
+	
+
+</hibernate-mapping>

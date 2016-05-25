@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.Localizare;
+import database.OperatiiBorderou;
 
 /**
  * Servlet implementation class GetPozitieMasini
@@ -27,15 +29,20 @@ public class GetPozitieMasini extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String listMasini = request.getParameter("listMasini");
+		String listMasini = "'" + request.getParameter("listMasini").replace(",", "','") + "'";
 
 		String listPozitii = "";
 
 		if (listMasini.length() > 0) {
 			Localizare localizare = new Localizare();
-			listPozitii = localizare.getPozitieMasini(listMasini);
+			try {
+				listPozitii = localizare.getPozitieMasini(listMasini);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		}
+
 		response.getWriter().write(listPozitii);
 	}
 

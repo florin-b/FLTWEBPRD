@@ -1,6 +1,15 @@
 package beans;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import enums.EnumDateDiff;
+import enums.EnumStatusMasina;
+import utils.Utils;
 
 public class PozitieMasina implements Serializable {
 
@@ -15,6 +24,8 @@ public class PozitieMasina implements Serializable {
 	private String longitudine;
 	private String data;
 	private String viteza;
+	private boolean isActual;
+	private EnumStatusMasina status;
 
 	public PozitieMasina() {
 
@@ -76,9 +87,32 @@ public class PozitieMasina implements Serializable {
 		this.viteza = viteza;
 	}
 
+	public void setActual() {
+		this.isActual = isActual();
+	}
+
+	public EnumStatusMasina getStatus() {
+		return status;
+	}
+
+	public void setStatus(EnumStatusMasina status) {
+		this.status = status;
+	}
+
+	public boolean isActual() {
+		Calendar currentDate = Calendar.getInstance();
+
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy hh:mm:ss", new Locale("en"));
+		if (Utils.dateDiff(dateFormat.format(currentDate.getTime()).toString(), data, EnumDateDiff.HOURS) > 1)
+			return false;
+
+		return true;
+	}
+
+	@Override
 	public String toString() {
-		return "PozitieMasina [deviceId=" + deviceId + ", codSofer=" + codSofer + ", nrAuto=" + nrAuto + ", latitudine=" + latitudine
-				+ ", longitudine=" + longitudine + ", data=" + data + ", viteza=" + viteza + "]";
+		return "PozitieMasina [deviceId=" + deviceId + ", codSofer=" + codSofer + ", nrAuto=" + nrAuto + ", latitudine=" + latitudine + ", longitudine="
+				+ longitudine + ", data=" + data + ", viteza=" + viteza + ", isActual=" + isActual + ", status=" + status + "]";
 	}
 
 }

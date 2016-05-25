@@ -1,16 +1,12 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import database.OperatiiFiliala;
 
 /**
  * Servlet implementation class getFiliale
@@ -24,7 +20,7 @@ public class GetFiliale extends HttpServlet {
 	 */
 	public GetFiliale() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -32,13 +28,6 @@ public class GetFiliale extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		OperatiiFiliala operatiiFiliala = new OperatiiFiliala();
-		HttpSession session = request.getSession();
-		try {
-			session.setAttribute("filiale", operatiiFiliala.getListFiliale());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
 		request.getRequestDispatcher("/pozitieMasiniOptiuni.jsp").forward(request, response);
 

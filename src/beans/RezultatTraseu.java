@@ -1,28 +1,12 @@
 package beans;
 
-public class RezultatTraseu {
+public class RezultatTraseu implements Comparable<RezultatTraseu> {
 
-	private String codClient;
-	private String numeClient;
+	private int poz;
+	private Client client;
 	private PozitieGps sosire;
 	private PozitieGps plecare;
 	private int distantaCamion;
-
-	public String getCodClient() {
-		return codClient;
-	}
-
-	public void setCodClient(String codClient) {
-		this.codClient = codClient;
-	}
-
-	public String getNumeClient() {
-		return numeClient;
-	}
-
-	public void setNumeClient(String numeClient) {
-		this.numeClient = numeClient;
-	}
 
 	public PozitieGps getSosire() {
 
@@ -50,12 +34,20 @@ public class RezultatTraseu {
 		this.distantaCamion = distantaCamion;
 	}
 
+	public int getPoz() {
+		return poz;
+	}
+
+	public void setPoz(int poz) {
+		this.poz = poz;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codClient == null) ? 0 : codClient.hashCode());
-		result = prime * result + ((sosire == null) ? 0 : sosire.hashCode());
+		result = prime * result + ((client.getCodClient() == null) ? 0 : client.getCodClient().hashCode());
+		result = prime * result + ((client.getCodAdresa() == null) ? 0 : client.getCodAdresa().hashCode());
 		return result;
 	}
 
@@ -68,23 +60,34 @@ public class RezultatTraseu {
 		if (getClass() != obj.getClass())
 			return false;
 		RezultatTraseu other = (RezultatTraseu) obj;
-		if (codClient == null) {
-			if (other.codClient != null)
+		if (client.getCodClient() == null) {
+			if (other.client.getCodClient() != null)
 				return false;
-		} else if (!codClient.equals(other.codClient))
+		} else if (!client.getCodClient().equals(other.client.getCodClient()))
 			return false;
-		if (sosire == null) {
-			if (other.sosire != null)
+		if (client.getCodAdresa() == null) {
+			if (other.client.getCodAdresa() != null)
 				return false;
-		} else if (!sosire.equals(other.sosire))
+		} else if (!client.getCodAdresa().equals(other.client.getCodAdresa()))
 			return false;
 		return true;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	@Override
 	public String toString() {
-		return "RezultatTraseu [codClient=" + codClient + ", numeClient=" + numeClient + ", sosire=" + sosire + ", plecare=" + plecare + ", distantaCamion="
-				+ distantaCamion + "]";
+		return "RezultatTraseu [poz=" + poz + ", client=" + client + ", sosire=" + sosire + ", plecare=" + plecare + ", distantaCamion=" + distantaCamion + "]";
+	}
+
+	public int compareTo(RezultatTraseu that) {
+		return this.poz < that.poz ? -1 : this.poz > that.poz ? 1 : 0;
 	}
 
 }

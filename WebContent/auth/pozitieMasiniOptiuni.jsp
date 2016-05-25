@@ -36,6 +36,16 @@
 <script type="text/javascript" src="../scripts/mapsFunctions.js"></script>
 <script type="text/javascript" src="../scripts/pozitieMasini.js"></script>
 
+<style> 
+div.map_div {
+    width: 1000px;
+    height: 700px;
+    resize: both;
+    overflow: auto;
+    visibility: hidden;
+}
+</style>
+
 
 </head>
 <body>
@@ -68,7 +78,7 @@
 
 						<tr id='optionsRow'>
 							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" /> <br></td>
-							<td valign="top" class="option_block">Camioane<br> <br>
+							<td valign="top" class="option_block">Masini<br> <br>
 								<div id="listMasina"></div>
 								<div id="checkGroup" style="display: none">
 									<input type="checkbox" name="checkToate" id="checkToate"> <label for="checkToate">Toate</label>
@@ -95,7 +105,7 @@
 								</table>
 						<tr>
 							<td valign="top" colspan='3'>
-								<div id="pozitieMasini" style="width: 1000px; height: 700px; visibility: hidden"></div>
+								<div class='map_div' id="pozitieMasini" ></div>
 							</td>
 
 						</tr>
@@ -109,6 +119,26 @@
 		</tr>
 
 	</table>
+
+	<div id="legend">
+		<b>Legenda</b>
+	</div>
+	<table cellpadding="1">
+		<tr>
+			<td><img src="../images/red_truck.png"></td>
+			<td valign="center">Borderou activ</td>
+		</tr>
+		<tr>
+			<td><img src="../images/green_truck.png"></td>
+			<td valign="center">Borderou terminat</td>
+		</tr>
+		<tr>
+			<td><img src="../images/blue_truck.png"></td>
+			<td valign="center">Fara borderou</td>
+		</tr>
+	</table>
+
+
 	<footer class="clear">
 	<div class="width">
 
@@ -116,7 +146,7 @@
 		<p class="left">
 			<myTags:footer copyright="${initParam.copyright}" />
 		</p>
-		<p class="right">Management Flota by FlorinB</p>
+		<p class="right">Management Flota</p>
 	</div>
 	</footer>
 

@@ -77,6 +77,7 @@ public class Controller extends HttpServlet {
 		try {
 			conn = ds.getConnection();
 		} catch (SQLException e) {
+			System.out.println(e.toString());
 			throw new ServletException();
 		}
 
@@ -104,7 +105,7 @@ public class Controller extends HttpServlet {
 				if (account.loginUser(user)) {
 					session.setAttribute("userAuthLevel", "1");
 					session.setAttribute("user", user);
-					request.getRequestDispatcher("/main.jsp").forward(request, response);
+					request.getRequestDispatcher("/main.jsp").include(request, response);
 				} else {
 					session.setAttribute("account", account);
 					session.setAttribute("user", user);

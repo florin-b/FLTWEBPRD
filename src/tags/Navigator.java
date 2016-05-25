@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import model.NavigationDetails;
@@ -15,9 +16,11 @@ public class Navigator extends SimpleTagSupport {
 	private void CreateNavigationLinks() {
 
 		navigationLinks = new ArrayList<NavigationDetails>();
-		String root = "http://localhost:8080/";
-		root = "http://10.1.0.133:8080/";
+
 		String app = "FlotaWeb/";
+
+		PageContext pageContext = (PageContext) getJspContext();
+		String root = pageContext.getServletContext().getInitParameter("AppRoot");
 
 		NavigationDetails nd = new NavigationDetails();
 

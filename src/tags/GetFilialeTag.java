@@ -1,7 +1,6 @@
 package tags;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
@@ -10,6 +9,7 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import beans.Filiala;
+import beans.UserInfo;
 import database.OperatiiFiliala;
 
 public class GetFilialeTag extends SimpleTagSupport {
@@ -30,15 +30,19 @@ public class GetFilialeTag extends SimpleTagSupport {
 
 		OperatiiFiliala operatiiFiliala = new OperatiiFiliala();
 
+		String filialaUser = UserInfo.getInstance().getFiliala();
+
 		List<Filiala> listFiliale = operatiiFiliala.getListFilialeStatic();
 
 		for (Filiala filiala : listFiliale) {
 
-			out.print("  <option value='");
-			out.print(filiala.getCod());
-			out.print("'>");
-			out.print(filiala.getNume());
-			out.println("</option>");
+			//if (filiala.getNume().contains(filialaUser)) {
+				out.print("  <option value='");
+				out.print(filiala.getCod());
+				out.print("'>");
+				out.print(filiala.getNume());
+				out.println("</option>");
+			//}
 
 		}
 

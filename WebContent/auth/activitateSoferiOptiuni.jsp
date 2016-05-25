@@ -44,6 +44,13 @@
 <script type="text/javascript" src="../scripts/datePicker.js"></script>
 <script type="text/javascript" src="../scripts/mapsBorderou.js"></script>
 
+<style> 
+div.map_div {
+    width: 1000px;
+    height: 700px;
+    visibility: hidden;
+}
+</style>
 
 </head>
 <body>
@@ -112,9 +119,18 @@
 							<td valign="top" align="right"><input id="showLess" type="image" src="../images/collapse_button.png"></td>
 						</tr>
 						<tr>
-							<td valign="top" colspan='4'><br>
-								<div id="rezultatActivitate"></div></td>
+							<td valign="top" colspan='4'>
+								<div id="rezultatActivitate"></div>
+							</td>
 						</tr>
+
+						<tr>
+							<td valign="top" colspan='4'><br>
+							<br>
+								<div id="sumarActivitate"></div></td>
+						</tr>
+
+
 						<tr>
 							<td valign="top" colspan='4'>
 								<button type="submit" id="showMapButton" class="styled-button-1" style="visibility: hidden">Harta</button>
@@ -122,7 +138,7 @@
 						</tr>
 						<tr>
 							<td colspan='4'>
-								<div id="hartaTraseu" style="width: 1000px; height: 700px;"></div>
+								<div id="hartaTraseu" class='map_div'></div>
 							</td>
 						</tr>
 
@@ -142,7 +158,7 @@
 		<p class="left">
 			<myTags:footer copyright="${initParam.copyright}" />
 		</p>
-		<p class="right">Management Flota by FlorinB</p>
+		<p class="right">Management Flota</p>
 	</div>
 	</footer>
 

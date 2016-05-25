@@ -7,7 +7,20 @@ import javax.sql.DataSource;
 
 public class DBManager {
 
-	public DataSource getProdDataSource() {
+	private static DataSource dataSource;
+
+	private DBManager() {
+
+	}
+
+	public static DataSource getProdInstance() {
+		if (dataSource == null)
+			dataSource =  getProdDataSource();
+
+		return dataSource;
+	}
+
+	private static DataSource getProdDataSource() {
 		InitialContext initContext;
 		DataSource ds = null;
 		try {

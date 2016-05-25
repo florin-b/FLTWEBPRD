@@ -10,5 +10,6 @@
 		<name>navigator</name>
 		<tag-class>tags.Navigator</tag-class>
 		<body-content>scriptless</body-content>
+		
 	</tag>
 </taglib>

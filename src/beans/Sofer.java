@@ -4,6 +4,7 @@ public class Sofer {
 
 	private String codSofer;
 	private String numeSofer;
+	private String filiala;
 
 	public String getCodSofer() {
 		return codSofer;
@@ -21,9 +22,17 @@ public class Sofer {
 		this.numeSofer = numeSofer;
 	}
 
+	public String getFiliala() {
+		return filiala;
+	}
+
+	public void setFiliala(String filiala) {
+		this.filiala = filiala;
+	}
+
 	@Override
 	public String toString() {
-		return "Sofer [codSofer=" + codSofer + ", numeSofer=" + numeSofer + "]";
+		return "Sofer [codSofer=" + codSofer + ", numeSofer=" + numeSofer + ", filiala=" + filiala + "]";
 	}
 
 }

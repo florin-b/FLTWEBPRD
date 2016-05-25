@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import beans.PozitieClient;
 import beans.TraseuBorderou;
+import database.OperatiiTraseu;
 
 /**
  * Servlet implementation class GetHartaBorderou
@@ -29,12 +31,17 @@ public class GetHartaBorderou extends HttpServlet {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 
-		List<PozitieClient> pozitiiClienti = (List<PozitieClient>) session.getAttribute("pozitiiClienti");
-		List<TraseuBorderou> traseuBorderou = (List<TraseuBorderou>) session.getAttribute("traseuBorderou");
+		HttpSession session = request.getSession();
+		String codBorderou = (String) session.getAttribute("codBorderou");
+		
+		String startBorderou = (String) session.getAttribute("startTraseu");
+		String stopBorderou = (String) session.getAttribute("stopTraseu");
+
+		OperatiiTraseu operatiiTraseu = new OperatiiTraseu();
+		List<PozitieClient> pozitiiClienti = operatiiTraseu.getCoordClientiBorderou(codBorderou);
+		List<TraseuBorderou> traseuBorderou = operatiiTraseu.getTraseuBorderou(codBorderou, startBorderou, stopBorderou);
 
 		StringBuilder strPozitii = new StringBuilder();
 

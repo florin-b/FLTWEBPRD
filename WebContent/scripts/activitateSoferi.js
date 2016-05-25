@@ -60,6 +60,7 @@ function() {
 		document.getElementById('rezultatActivitate').style.visibility = "hidden";
 		document.getElementById('showMapButton').style.visibility = "hidden";
 		document.getElementById('hartaTraseu').style.visibility = "hidden";
+		document.getElementById('sumarActivitate').style.visibility = "hidden";
 		clearSelectedOptionsInfo();
 
 		selectedSofer = $("#listSoferi option:selected").text();
@@ -75,6 +76,8 @@ function() {
 		document.getElementById('rezultatActivitate').style.visibility = "hidden";
 		document.getElementById('showMapButton').style.visibility = "hidden";
 		document.getElementById('hartaTraseu').style.visibility = "hidden";
+		document.getElementById('sumarActivitate').style.visibility = "hidden";
+		
 
 	});
 
@@ -90,9 +93,16 @@ function() {
 			codBorderou : documentSel
 		}, function(response) {
 
-			$('#rezultatActivitate').html(response);
+			var strResponse = response.split("#", 2);
+			var rezActivitate = strResponse[0];
+			var sumarActivitate = strResponse[1];
+
+			$('#rezultatActivitate').html(rezActivitate);
+			$('#sumarActivitate').html(sumarActivitate);
+
 			document.getElementById('rezultatActivitate').style.visibility = "visible";
 			document.getElementById('showMapButton').style.visibility = "visible";
+			document.getElementById('sumarActivitate').style.visibility = "visible";
 
 			closeWaitingDialog();
 
@@ -136,6 +146,9 @@ function() {
 
 });
 
+$("#harta_traseu").resizable();
+
+
 function composeSelectedOptionsInfo() {
 	strOptionsInfo = selectedFiliala + ", " + selectedSofer + ", " + selectedDocument;
 }
@@ -150,7 +163,9 @@ function hideOptions() {
 	document.getElementById('block_documente').style.visibility = "hidden";
 	document.getElementById('rezultatActivitate').style.visibility = "hidden";
 	document.getElementById('showMapButton').style.visibility = "hidden";
+	document.getElementById('sumarActivitate').style.visibility = "hidden";
 	document.getElementById('hartaTraseu').style.visibility = "hidden";
+
 	clearSelectedOptionsInfo();
 }
 

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	id="WebApp_ID" version="3.1">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
 	<display-name>FlotaWeb</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
@@ -11,6 +9,7 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 	<resource-ref>
 		<description>Oracle Datasource Test</description>
@@ -32,19 +31,25 @@
 		<servlet-name>GetMasini</servlet-name>
 		<servlet-class>servlets.GetMasini</servlet-class>
 	</servlet>
+
+
+	<context-param>
+		<param-name>AppRoot</param-name>
+		<param-value>http://10.1.0.133:8080/</param-value>
+	</context-param>
+
 	<filter>
 		<filter-name>AuthorizationFilter</filter-name>
 		<filter-class>filters.AuthorizationFilter</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>AuthorizationFilter</filter-name>
 		<url-pattern>/auth/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AuthorizationFilter</filter-name>
 		<servlet-name>getMasini.do</servlet-name>
 	</filter-mapping>
+	<listener>
+		<listener-class>listeners.SessionListener</listener-class>
+	</listener>
 
 
 </web-app>

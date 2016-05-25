@@ -6,7 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import beans.User;
+import beans.UserInfo;
 
 public class Account {
 
@@ -41,6 +44,10 @@ public class Account {
 			if (callableStatement.getInt(3) == 3) {
 				user.setFiliala(callableStatement.getString(5));
 				user.setUserName(callableStatement.getString(9));
+
+				UserInfo.getInstance().setFiliala(user.getFiliala());
+				UserInfo.getInstance().setNume(user.getName());
+
 				return true;
 			} else {
 				setErrMessage(callableStatement.getInt(3));
@@ -48,7 +55,7 @@ public class Account {
 			}
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			setErrMessage(-1);
 			return false;
 
 		} finally {
@@ -76,6 +83,9 @@ public class Account {
 		case 4:
 			errMessage = "Cont inactiv";
 			break;
+		default:
+			errMessage = "Eroare conectare bd.";
+			break;
 
 		}
 
@@ -97,7 +107,15 @@ public class Account {
 			count = rs.getInt("count");
 		}
 
-		rs.close();
+		try {
+			if (rs != null)
+				rs.close();
+
+			if (stmt != null)
+				stmt.close();
+		} catch (Exception ex) {
+
+		}
 
 		if (count == 0) {
 			return false;

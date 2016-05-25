@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -13,8 +12,7 @@
 
 <%@ taglib prefix="myTags" tagdir="/WEB-INF/tags"%>
 
-<meta name="viewport"
-	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 </head>
 
 <body>
@@ -27,16 +25,15 @@
 		<div class="tagline"></div>
 	</div>
 	</header>
-	<section id="body" class="width clear"> <jsp:include
-		page="/auth/navbar.jsp" /> <section id="content" class="column-right">
-
-
-	Welcome <c:out value="${user.userName}" /> </section> </section>
+	<section id="body" class="width clear"> <jsp:include page="/auth/navbar.jsp" /> <section id="content" class="column-right"> Sunteti logat
+	ca <c:out value="${user.userName}" /> </section> </section>
 
 	<footer class="clear">
 	<div class="width">
-		<p class="left"><myTags:footer copyright="${initParam.copyright}" /></p>
-		<p class="right">Management Flota by FlorinB</p>
+		<p class="left">
+			<myTags:footer copyright="${initParam.copyright}" />
+		</p>
+		<p class="right">Management Flota</p>
 	</div>
 	</footer>
 

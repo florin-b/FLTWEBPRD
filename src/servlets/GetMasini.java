@@ -38,7 +38,7 @@ public class GetMasini extends HttpServlet {
 		option.append("<select id=\"masini\" name=\"masini\" multiple size=10>");
 		for (Masina oMasina : listMasini) {
 			option.append("<option value=");
-			option.append(oMasina.getDeviceId());
+			option.append(oMasina.getNrAuto());
 			option.append(">");
 			option.append(oMasina.getNrAuto());
 			option.append("</option>");
