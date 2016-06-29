@@ -26,13 +26,25 @@ public class GetMasini extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().write(getListMasini(request));
 
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	private String getListMasini(HttpServletRequest request) {
 		String codFiliala = request.getParameter("filialaSel");
 
 		OperatiiFiliala operatiiFiliala = new OperatiiFiliala();
 		List<Masina> listMasini = null;
 
-		listMasini = operatiiFiliala.getMasiniFiliala(codFiliala);
+		try {
+			listMasini = operatiiFiliala.getMasiniFiliala(codFiliala);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		StringBuilder option = new StringBuilder();
 		option.append("<select id=\"masini\" name=\"masini\" multiple size=10>");
@@ -45,12 +57,8 @@ public class GetMasini extends HttpServlet {
 		}
 		option.append("</select>");
 
-		response.getWriter().write(option.toString());
+		return option.toString();
 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

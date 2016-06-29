@@ -30,7 +30,7 @@
 
 			<div id="form_wrapper" class="form_wrapper">
 
-				<form method="post" class="login active" action="<%=response.encodeURL(application.getInitParameter("AppRoot") + "FlotaWeb/Controller?action=dologin")%>">
+				<form method="post" class="login active" action="<%=response.encodeURL("Controller?action=dologin")%>">
 					<h3>Login</h3>
 					<div>
 						<label class="label_style">Utilizator:</label> <input type="text" name="name" class="field_text_style" value="androag" />

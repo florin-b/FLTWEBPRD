@@ -7,10 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
 import beans.Address;
 import beans.BeanBoundBord;
 import beans.Client;
@@ -25,7 +21,7 @@ import utils.UtilsAdrese;
 
 public class OperatiiTraseu {
 
-	public List<TraseuBorderou> getTraseuBorderou(String codBorderou, String startBorderou, String stopBorderou) {
+	public List<TraseuBorderou> getTraseuBorderou(String codBorderou, String startBorderou, String stopBorderou) throws SQLException {
 
 		DateBorderou dateBorderou = null;
 
@@ -37,43 +33,53 @@ public class OperatiiTraseu {
 
 		String sqlString = " select to_char(c.record_time,'dd-Mon-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') datarec , c.latitude, c.longitude, nvl(c.mileage,0) kilo, "
 				+ " nvl(c.speed,0) viteza from gps_masini b, gps_date c  where " + " b.nr_masina = replace(:nrMasina,'-','') and c.device_id = b.id "
-				+ " and  c.record_time between to_date(:dataStart,'dd-mm-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') " + 
-				" and to_date(:dataStop,'dd-mm-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') order by c.record_time ";
+				+ " and  c.record_time between to_date(:dataStart,'dd-mm-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') "
+				+ " and to_date(:dataStop,'dd-mm-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') order by c.record_time ";
 
-		MapSqlParameterSource parameter = new MapSqlParameterSource();
-		parameter.addValue("codBorderou", codBorderou);
-		parameter.addValue("dataStart", startBorderou);
-		parameter.addValue("dataStop", stopBorderou);
-		parameter.addValue("nrMasina", dateBorderou.getNrMasina());
+		List<TraseuBorderou> listTraseu = new ArrayList<TraseuBorderou>();
 
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
+		try (Connection conn = DBManager.getProdInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sqlString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
 
-		return jdbc.query(sqlString, parameter, new RowMapper<TraseuBorderou>() {
+			stmt.setString(1, dateBorderou.getNrMasina());
+			stmt.setString(2, startBorderou);
+			stmt.setString(3, stopBorderou);
+			
 
-			public TraseuBorderou mapRow(ResultSet rs, int rowNum) throws SQLException {
+			stmt.executeQuery();
+
+			ResultSet rs = stmt.getResultSet();
+
+			while (rs.next()) {
 				TraseuBorderou pozitie = new TraseuBorderou();
 				pozitie.setDataInreg(rs.getString("datarec"));
 				pozitie.setLatitudine(rs.getDouble("latitude"));
 				pozitie.setLongitudine(rs.getDouble("longitude"));
 				pozitie.setKm(rs.getInt("kilo"));
 				pozitie.setViteza(rs.getInt("viteza"));
-				return pozitie;
+				listTraseu.add(pozitie);
+
 			}
-		});
+
+		}
+
+		return listTraseu;
 
 	}
 
-	public List<Client> getClientiBorderou(String codBorderou) {
+	public List<Client> getClientiBorderou(String codBorderou) throws SQLException {
 		List<Client> listClienti = new ArrayList<>();
 
-		MapSqlParameterSource parameter = new MapSqlParameterSource();
-		parameter.addValue("codBorderou", codBorderou);
+		try (Connection conn = DBManager.getProdInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SqlQueries.getClientiBorderou(), ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);) {
 
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
+			stmt.setString(1, codBorderou);
+			stmt.executeQuery();
 
-		listClienti = jdbc.query(SqlQueries.getClientiBorderou(), parameter, new RowMapper<Client>() {
+			ResultSet rs = stmt.getResultSet();
 
-			public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
+			while (rs.next()) {
 				Client client = new Client();
 				client.setPoz(Integer.valueOf(rs.getString("poz")));
 				client.setCodClient(rs.getString("cod_client"));
@@ -84,9 +90,11 @@ public class OperatiiTraseu {
 				client.setStrada(rs.getString("street"));
 				client.setNrStrada(rs.getString("house_num1"));
 				client.setCodJudet(rs.getString("region"));
-				return client;
+				listClienti.add(client);
+
 			}
-		});
+
+		}
 
 		List<Client> listBorder = null;
 		try {
@@ -153,8 +161,8 @@ public class OperatiiTraseu {
 
 	}
 
-	public List<PozitieClient> getCoordClientiBorderou(String codBorderou) {
-		List<PozitieClient> listPozitii = null;
+	public List<PozitieClient> getCoordClientiBorderou(String codBorderou) throws SQLException {
+		List<PozitieClient> listPozitii = new ArrayList<PozitieClient>();
 
 		String sqlString = " select a.poz, c.nume, decode(a.cod_client,'', a.cod_furnizor, a.cod_client) cod_client, "
 				+ " decode(a.cod_client,'',a.adresa_furnizor, a.adresa_client) cod_adresa, " + " b.city1, b.street, b.house_num1, b.region, "
@@ -163,14 +171,14 @@ public class OperatiiTraseu {
 				+ " and b.client = '900' and b.addrnumber = decode(a.cod_client,'',a.adresa_furnizor, a.adresa_client) "
 				+ " and d.idcomanda(+) = a.idcomanda order by a.poz";
 
-		MapSqlParameterSource parameter = new MapSqlParameterSource();
-		parameter.addValue("codBorderou", codBorderou);
+		try (Connection conn = DBManager.getProdInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sqlString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
 
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
+			stmt.setString(1, codBorderou);
+			stmt.executeQuery();
 
-		listPozitii = jdbc.query(sqlString, parameter, new RowMapper<PozitieClient>() {
-
-			public PozitieClient mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ResultSet rs = stmt.getResultSet();
+			while (rs.next()) {
 				PozitieClient pozitie = new PozitieClient();
 				pozitie.setPoz(Integer.valueOf(rs.getString("poz")));
 				pozitie.setCodClient(rs.getString("cod_client"));
@@ -179,9 +187,10 @@ public class OperatiiTraseu {
 				pozitie.setCodAdresa(rs.getString("cod_adresa"));
 				pozitie.setNumeClient(rs.getString("nume"));
 				pozitie.setTipClient(EnumTipClient.DISTRIBUTIE);
-				return pozitie;
+				listPozitii.add(pozitie);
 			}
-		});
+
+		}
 
 		List<PozitieClient> listBorder = null;
 		try {

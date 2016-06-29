@@ -53,10 +53,9 @@ public class SqlQueries {
 	public static String getBorderouActiv() {
 		StringBuilder sqlString = new StringBuilder();
 
-		sqlString.append(" select document from sapprd.zevenimentsofer where ");
-		sqlString.append(" document = (select numarb from ( ");
+		sqlString.append(" select numarb from ( ");
 		sqlString.append(" select numarb from websap.borderouri where sttrg in ( 4, 6) ");
-		sqlString.append(" and masina =? order by sttrg desc,data_e asc) x where rownum<2) ");
+		sqlString.append(" and replace(masina,'-','') =? order by sttrg desc,data_e asc)  where rownum<2 ");
 
 		return sqlString.toString();
 
@@ -75,9 +74,7 @@ public class SqlQueries {
 	public static String getStareMasina() {
 		StringBuilder sqlString = new StringBuilder();
 
-		sqlString.append(" select  count(distinct decode(cod_client,'', cod_furnizor, cod_client)) clnt from sapprd.zdocumentesms where nr_bord =? ");
-		sqlString.append(" union all ");
-		sqlString.append(" select distinct count(client) clnt  from sapprd.zevenimentsofer where document =?  and document != client and eveniment = 'S'");
+		sqlString.append("select count(codsofer) from sapprd.zevenimentsofer where document =?  and  client = document and eveniment = 'S'");
 
 		return sqlString.toString();
 	}

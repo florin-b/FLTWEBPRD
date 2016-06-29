@@ -17,12 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import beans.User;
 import database.Account;
-import utils.Constants;
 
 /**
  * Servlet implementation class Controller
@@ -92,9 +88,7 @@ public class Controller extends HttpServlet {
 			request.setAttribute("password", "");
 			request.setAttribute("message", "");
 
-			ApplicationContext context = new ClassPathXmlApplicationContext(Constants.BEANS_XML);
-
-			User user = (User) context.getBean("user");
+			User user = new User();
 			user.setName(name);
 			user.setPassword(password);
 
@@ -106,6 +100,7 @@ public class Controller extends HttpServlet {
 					session.setAttribute("userAuthLevel", "1");
 					session.setAttribute("user", user);
 					request.getRequestDispatcher("/main.jsp").include(request, response);
+
 				} else {
 					session.setAttribute("account", account);
 					session.setAttribute("user", user);
@@ -114,8 +109,6 @@ public class Controller extends HttpServlet {
 			} catch (SQLException e) {
 				request.setAttribute("email", "Eroare conectare baza de date.");
 			}
-
-			((ClassPathXmlApplicationContext) context).close();
 
 		}
 
@@ -126,6 +119,13 @@ public class Controller extends HttpServlet {
 			request.setAttribute("message", "");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
+
+		if (conn != null)
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 	}
 

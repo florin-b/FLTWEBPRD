@@ -1,6 +1,7 @@
 package async;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.AsyncContext;
@@ -48,7 +49,12 @@ public class SoferiAsync implements Runnable {
 
 		List<Sofer> listSoferi = null;
 
-		listSoferi = operatiiSoferi.getListSoferi(filiala);
+		try {
+			listSoferi = operatiiSoferi.getListSoferi(filiala);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		StringBuilder option = new StringBuilder();
 		option.append("<select id=\"soferi\" name=\"soferi\"  size=10>");

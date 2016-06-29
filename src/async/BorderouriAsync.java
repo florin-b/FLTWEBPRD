@@ -1,6 +1,7 @@
 package async;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.AsyncContext;
@@ -48,7 +49,12 @@ public class BorderouriAsync implements Runnable {
 		OperatiiSoferi operatiiSoferi = new OperatiiSoferi();
 		List<Borderou> listBorderouri = null;
 
-		listBorderouri = operatiiSoferi.getBorderouri(codSofer, Formatting.dateFormat(dataStart), Formatting.dateFormat(dataStop));
+		try {
+			listBorderouri = operatiiSoferi.getBorderouri(codSofer, Formatting.simpleDateFormat(dataStart), Formatting.simpleDateFormat(dataStop));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		StringBuilder option = new StringBuilder();
 

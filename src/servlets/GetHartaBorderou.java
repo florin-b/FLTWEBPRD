@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,20 +28,31 @@ public class GetHartaBorderou extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().write(getTraseuBorderou(request));
+	}
 
+	private String getTraseuBorderou(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String codBorderou = (String) session.getAttribute("codBorderou");
-		
+
 		String startBorderou = (String) session.getAttribute("startTraseu");
 		String stopBorderou = (String) session.getAttribute("stopTraseu");
 
 		OperatiiTraseu operatiiTraseu = new OperatiiTraseu();
-		List<PozitieClient> pozitiiClienti = operatiiTraseu.getCoordClientiBorderou(codBorderou);
-		List<TraseuBorderou> traseuBorderou = operatiiTraseu.getTraseuBorderou(codBorderou, startBorderou, stopBorderou);
+
+		List<PozitieClient> pozitiiClienti = null;
+		List<TraseuBorderou> traseuBorderou = null;
+
+		try {
+			pozitiiClienti = operatiiTraseu.getCoordClientiBorderou(codBorderou);
+			traseuBorderou = operatiiTraseu.getTraseuBorderou(codBorderou, startBorderou, stopBorderou);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		StringBuilder strPozitii = new StringBuilder();
 
@@ -70,7 +81,7 @@ public class GetHartaBorderou extends HttpServlet {
 		strResult.append("--");
 		strResult.append(strPozitii.toString());
 
-		response.getWriter().write(strResult.toString());
+		return strResult.toString();
 	}
 
 }

@@ -35,8 +35,7 @@ public class AuthorizationFilter implements Filter {
 		HttpSession s = req.getSession();
 
 		if (s.getAttribute("userAuthLevel") == null) {
-			String target = Constants.LOGIN_PAGE_URL;
-			res.sendRedirect(target);
+			res.sendRedirect("/FlotaWeb/login.jsp");
 
 		} else {
 			chain.doFilter(request, response);

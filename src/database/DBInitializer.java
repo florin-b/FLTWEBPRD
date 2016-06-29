@@ -4,7 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import hibernate.HibernateUtilities;
+
 
 /**
  * Application Lifecycle Listener implementation class SystemListener
@@ -31,8 +31,7 @@ public class DBInitializer implements ServletContextListener {
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent arg0) {
-		//HibernateUtilities.getSessionFactoryInstance();
-		DBManager.getProdInstance();
+		//DBManager.getProdInstance();
 	}
 
 }

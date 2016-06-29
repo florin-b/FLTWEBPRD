@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.Localizare;
-import database.OperatiiBorderou;
 
-/**
- * Servlet implementation class GetPozitieMasini
- */
 @WebServlet("/getPozitieMasini.do")
 public class GetPozitieMasini extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +25,10 @@ public class GetPozitieMasini extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().write(getPozitieMasini(request));
+	}
+
+	private String getPozitieMasini(HttpServletRequest request) {
 		String listMasini = "'" + request.getParameter("listMasini").replace(",", "','") + "'";
 
 		String listPozitii = "";
@@ -43,7 +43,8 @@ public class GetPozitieMasini extends HttpServlet {
 
 		}
 
-		response.getWriter().write(listPozitii);
+		return listPozitii;
+
 	}
 
 }

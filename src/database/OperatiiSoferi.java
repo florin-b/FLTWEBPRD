@@ -1,39 +1,47 @@
 package database;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import beans.Borderou;
 import beans.Sofer;
 import hibernate.HibernateUtilities;
+import queries.SqlQueries;
 
 public class OperatiiSoferi {
 
-	public List<Sofer> getListSoferi(String codFiliala) {
+	public List<Sofer> getListSoferi(String codFiliala) throws SQLException {
 
 		String sqlString = " select distinct nume, cod from soferi where fili =:codFiliala order by nume ";
 
-		SqlParameterSource parameter = new MapSqlParameterSource("codFiliala", codFiliala);
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
+		List<Sofer> listSoferi = new ArrayList<Sofer>();
 
-		return jdbc.query(sqlString, parameter, new RowMapper<Sofer>() {
+		try (Connection conn = DBManager.getProdInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sqlString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
 
-			public Sofer mapRow(ResultSet rs, int rowNum) throws SQLException {
+			stmt.setString(1, codFiliala);
+			stmt.executeQuery();
+
+			ResultSet rs = stmt.getResultSet();
+
+			while (rs.next()) {
 				Sofer sofer = new Sofer();
 				sofer.setCodSofer(rs.getString("cod"));
 				sofer.setNumeSofer(rs.getString("nume"));
-				return sofer;
+				listSoferi.add(sofer);
 			}
-		});
+
+		}
+
+		return listSoferi;
 
 	}
 
@@ -46,7 +54,7 @@ public class OperatiiSoferi {
 		return soferi;
 	}
 
-	public List<Borderou> getBorderouri(String codSofer, String dataStart, String dataStop) {
+	public List<Borderou> getBorderouri(String codSofer, String dataStart, String dataStop) throws SQLException {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
 
@@ -58,25 +66,59 @@ public class OperatiiSoferi {
 				+ " select numarb, trunc(a.data_e) dataEmitere, 'true' activ from borderouri a where  cod_sofer =:codSofer and "
 				+ " data_e between to_date(:dataStart,'yyyymmdd')  and to_date(:dataStop,'yyyymmdd') order by dataEmitere ";
 
-		MapSqlParameterSource parameter = new MapSqlParameterSource();
+		List<Borderou> listBorderouri = new ArrayList<Borderou>();
 
-		parameter.addValue("codSofer", codSofer);
-		parameter.addValue("dataStart", dataStart);
-		parameter.addValue("dataStop", dataStop);
+		try (Connection conn = DBManager.getProdInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sqlString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
 
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
+			stmt.setString(1, codSofer);
+			stmt.setString(2, dataStart);
+			stmt.setString(3, dataStop);
+			stmt.setString(4, codSofer);
+			stmt.setString(5, dataStart);
+			stmt.setString(6, dataStop);
+			
+			
+			stmt.executeQuery();
 
-		return jdbc.query(sqlString, parameter, new RowMapper<Borderou>() {
+			ResultSet rs = stmt.getResultSet();
 
-			public Borderou mapRow(ResultSet rs, int rowNum) throws SQLException {
+			while (rs.next()) {
 				Borderou borderou = new Borderou();
 				borderou.setCod(rs.getString("numarb"));
 				borderou.setDataEmitere(rs.getDate("dataEmitere").toLocalDate().format(formatter));
 				borderou.setActiv(Boolean.valueOf(rs.getString("activ")));
-				return borderou;
+				listBorderouri.add(borderou);
 			}
-		});
 
+		}
+
+		return listBorderouri;
+
+	}
+
+	public String getBorderouCurent(String nrMasina) throws SQLException {
+
+		String borderouCurent = "";
+		Connection conn = DBManager.getProdInstance().getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement(SqlQueries.getBorderouActiv().toString());
+
+		stmt.setString(1, nrMasina);
+
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+			borderouCurent = rs.getString("numarb");
+		}
+
+		if (rs != null)
+			rs.close();
+
+		if (conn != null)
+			conn.close();
+
+		return borderouCurent;
 	}
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -255,7 +256,13 @@ public class CalculeazaTraseu {
 		OperatiiBorderou opBorderou = new OperatiiBorderou();
 		List<BeanEvenimentTableta> evTableta = opBorderou.getEvenimenteTableta(codBorderou);
 
-		List<Client> listClienti = new OperatiiTraseu().getClientiBorderou(codBorderou);
+		List<Client> listClienti = null;
+		
+		try {
+			listClienti = new OperatiiTraseu().getClientiBorderou(codBorderou);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		Collections.sort(evTableta, new EvTablComparator());
 

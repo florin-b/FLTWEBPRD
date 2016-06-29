@@ -55,15 +55,12 @@ public class OperatiiBorderou {
 		try (Connection conn = DBManager.getProdInstance().getConnection(); PreparedStatement prep = conn.prepareStatement(SqlQueries.getStareMasina())) {
 
 			prep.setString(1, codBorderou);
-			prep.setString(2, codBorderou);
 			ResultSet rs = prep.executeQuery();
 
 			rs.next();
 			int livrExist = rs.getInt(1);
-			rs.next();
-			int livrMarc = rs.getInt(1);
 
-			if (livrExist == livrMarc)
+			if (livrExist > 0)
 				return EnumStatusMasina.BORDEROU_TERMINAT;
 			else
 				return EnumStatusMasina.BORDEROU_ACTIV;

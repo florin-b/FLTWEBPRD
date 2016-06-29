@@ -1,14 +1,11 @@
 package database;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import beans.Filiala;
 import beans.Masina;
@@ -30,40 +27,33 @@ public class OperatiiFiliala {
 		return listFiliale;
 	}
 
-	public List<Filiala> getListFiliale() throws SQLException {
+	public List<Masina> getMasiniFiliala(String codFiliala) throws SQLException {
 
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
-		return jdbc.query("select distinct fili from soferi order by fili", new RowMapper<Filiala>() {
-
-			public Filiala mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-				Filiala filiala = new Filiala();
-				filiala.setCod(rs.getString("fili"));
-				filiala.setNume(helper.Filiala.getNumeFiliala(filiala.getCod()));
-
-				return filiala;
-			}
-
-		});
-
-	}
-
-	public List<Masina> getMasiniFiliala(String codFiliala) {
-
-		String sql = " select distinct a.ktext masina, nvl(b.id,-1) deviceid from sapprd.coas a, gps_masini b where  a.phas3<>'X' and "
+		String sqlString = " select distinct a.ktext masina, nvl(b.id,-1) deviceid from sapprd.coas a, gps_masini b where  a.phas3<>'X' and "
 				+ " a.werks !=' ' and a.mandt = '900' and a.auart = '1001' and " + " replace(a.ktext, '-') = b.nr_masina and a.werks=:werks order by a.ktext";
 
-		SqlParameterSource paramter = new MapSqlParameterSource("werks", codFiliala);
-		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(DBManager.getProdInstance());
-		return jdbc.query(sql, paramter, new RowMapper<Masina>() {
+		List<Masina> listMasini = new ArrayList<Masina>();
 
-			public Masina mapRow(ResultSet rs, int rowNum) throws SQLException {
+		try (Connection conn = DBManager.getProdInstance().getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sqlString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
+
+			stmt.setString(1, codFiliala);
+			stmt.executeQuery();
+
+			ResultSet rs = stmt.getResultSet();
+
+			while (rs.next()) {
+
 				Masina masina = new Masina();
 				masina.setNrAuto(rs.getString("masina"));
 				masina.setDeviceId(rs.getString("deviceid"));
-				return masina;
+				listMasini.add(masina);
+
 			}
-		});
+
+		}
+
+		return listMasini;
 
 	}
 

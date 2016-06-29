@@ -2,11 +2,8 @@ package database;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import javax.sql.DataSource;
+import java.sql.SQLException;
 
 import beans.User;
 import beans.UserInfo;
@@ -47,6 +44,7 @@ public class Account {
 
 				UserInfo.getInstance().setFiliala(user.getFiliala());
 				UserInfo.getInstance().setNume(user.getName());
+				UserInfo.getInstance().setTipAcces(callableStatement.getString(6));
 
 				return true;
 			} else {
@@ -89,39 +87,6 @@ public class Account {
 
 		}
 
-	}
-
-	public boolean login(String nume, String password) throws SQLException {
-
-		String sql = "select count(*) as count from agenti where nume=? ";
-
-		PreparedStatement stmt = conn.prepareStatement(sql);
-
-		stmt.setString(1, nume);
-
-		ResultSet rs = stmt.executeQuery();
-
-		int count = 0;
-
-		if (rs.next()) {
-			count = rs.getInt("count");
-		}
-
-		try {
-			if (rs != null)
-				rs.close();
-
-			if (stmt != null)
-				stmt.close();
-		} catch (Exception ex) {
-
-		}
-
-		if (count == 0) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 	public String getErrMessage() {

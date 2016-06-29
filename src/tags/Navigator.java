@@ -7,6 +7,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import beans.UserInfo;
 import model.NavigationDetails;
 
 public class Navigator extends SimpleTagSupport {
@@ -17,29 +18,39 @@ public class Navigator extends SimpleTagSupport {
 
 		navigationLinks = new ArrayList<NavigationDetails>();
 
-		String app = "FlotaWeb/";
-
 		PageContext pageContext = (PageContext) getJspContext();
-		String root = pageContext.getServletContext().getInitParameter("AppRoot");
+		String root = pageContext.getServletContext().getContextPath();
 
 		NavigationDetails nd = new NavigationDetails();
 
-		nd.setLink(String.format("%s%smain.jsp", root, app));
+		nd.setLink(String.format("%s/main.jsp", root));
 		nd.setText("Acasa");
 		navigationLinks.add(nd);
 
 		nd = new NavigationDetails();
-		nd.setLink(String.format("%s%sauth/activitateSoferiOptiuni.jsp", root, app));
+		nd.setLink(String.format("%s/auth/activitateSoferiOptiuni.jsp", root));
 		nd.setText("Activitate soferi");
 		navigationLinks.add(nd);
 
 		nd = new NavigationDetails();
-		nd.setLink(String.format("%s%sauth/pozitieMasiniOptiuni.jsp", root, app));
+		nd.setLink(String.format("%s/auth/pozitieMasiniOptiuni.jsp", root));
 		nd.setText("Pozitie masini");
 		navigationLinks.add(nd);
 
 		nd = new NavigationDetails();
-		nd.setLink(String.format("%s%sexit.jsp", root, app));
+		nd.setLink(String.format("%s/auth/gpsInactiv.jsp", root));
+		nd.setText("Module GPS inactive");
+		navigationLinks.add(nd);
+
+		if (UserInfo.getInstance().getTipAcces().equals("8")) {
+			nd = new NavigationDetails();
+			nd.setLink(String.format("%s/auth/analizaSmsClienti.jsp", root));
+			nd.setText("SMS Clienti");
+			navigationLinks.add(nd);
+		}
+
+		nd = new NavigationDetails();
+		nd.setLink(String.format("%s/exit.jsp", root));
 		nd.setText("Logout");
 		navigationLinks.add(nd);
 

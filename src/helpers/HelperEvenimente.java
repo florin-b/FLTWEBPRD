@@ -1,9 +1,11 @@
 package helpers;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import beans.Client;
+import beans.GpsInactiv;
 import beans.RezultatTraseu;
 import beans.SumarTraseu;
 import utils.Utils;
@@ -107,6 +109,37 @@ public class HelperEvenimente {
 		strResult.append("</table>");
 
 		return strResult.toString();
+	}
+
+	public static String formatGpsInactiv(List<GpsInactiv> listGps) {
+
+		StringBuilder strResult = new StringBuilder();
+
+		strResult.append("<table class='imagetable'><tr>");
+		strResult.append("<th>Nr</th>");
+		strResult.append("<th>Numar auto</th>");
+		strResult.append("<th>Zile inactivitate</th>");
+
+		int cont = 1;
+		for (GpsInactiv gpsInactiv : listGps) {
+			strResult.append("<tr><td align='center'>");
+			strResult.append(String.valueOf(cont) + ".");
+			strResult.append("</td>");
+
+			strResult.append("<td align='center'>");
+			strResult.append(gpsInactiv.getNrAuto());
+			strResult.append("</td>");
+
+			strResult.append("<td align='center'>");
+			strResult.append(gpsInactiv.getNrZileInact());
+			strResult.append("</td>");
+
+			cont++;
+
+		}
+
+		return strResult.toString();
+
 	}
 
 	private static String validareSosire(RezultatTraseu traseu) {

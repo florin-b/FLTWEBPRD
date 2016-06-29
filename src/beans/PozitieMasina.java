@@ -26,6 +26,7 @@ public class PozitieMasina implements Serializable {
 	private String viteza;
 	private boolean isActual;
 	private EnumStatusMasina status;
+	private String borderou;
 
 	public PozitieMasina() {
 
@@ -109,10 +110,18 @@ public class PozitieMasina implements Serializable {
 		return true;
 	}
 
+	public String getBorderou() {
+		return borderou;
+	}
+
+	public void setBorderou(String borderou) {
+		this.borderou = borderou;
+	}
+
 	@Override
 	public String toString() {
 		return "PozitieMasina [deviceId=" + deviceId + ", codSofer=" + codSofer + ", nrAuto=" + nrAuto + ", latitudine=" + latitudine + ", longitudine="
-				+ longitudine + ", data=" + data + ", viteza=" + viteza + ", isActual=" + isActual + ", status=" + status + "]";
+				+ longitudine + ", data=" + data + ", viteza=" + viteza + ", isActual=" + isActual + ", status=" + status + ", borderou=" + borderou + "]";
 	}
 
 }

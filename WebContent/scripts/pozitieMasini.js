@@ -8,7 +8,8 @@ var timerRefresh;
 $(document).ready(
 
 function() {
-	$('#filiale').on('change', function() {
+
+	$('#filiale').click(function() {
 		waitingDialog({});
 		var filiala = $('#filiale').val();
 
@@ -34,6 +35,7 @@ function() {
 		});
 
 	});
+
 	$('#showPozitie').on('click', function() {
 
 		var masini = $('#listMasina').children('select[name="masini"]').val().toString();
