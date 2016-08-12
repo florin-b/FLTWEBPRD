@@ -8,10 +8,15 @@ import java.sql.SQLException;
 import beans.User;
 import beans.UserInfo;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Account {
 
 	private Connection conn;
 	private String errMessage;
+	
+	private static final Logger logger = LogManager.getLogger(Account.class);
 
 	public Account(Connection conn) {
 		this.conn = conn;
@@ -53,6 +58,7 @@ public class Account {
 			}
 
 		} catch (SQLException e) {
+			logger.error(e.toString());
 			setErrMessage(-1);
 			return false;
 

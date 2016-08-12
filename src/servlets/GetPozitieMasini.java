@@ -11,9 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.Localizare;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @WebServlet("/getPozitieMasini.do")
 public class GetPozitieMasini extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(GetPozitieMasini.class);
 
 	public GetPozitieMasini() {
 		super();
@@ -38,7 +42,7 @@ public class GetPozitieMasini extends HttpServlet {
 			try {
 				listPozitii = localizare.getPozitieMasini(listMasini);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 		}

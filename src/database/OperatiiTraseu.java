@@ -7,19 +7,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.Address;
 import beans.BeanBoundBord;
 import beans.Client;
 import beans.CoordonateGps;
 import beans.DateBorderou;
 import beans.PozitieClient;
+import beans.SumarTraseu;
 import beans.TraseuBorderou;
 import enums.EnumTipClient;
+import helpers.HelperEvenimente;
 import queries.SqlQueries;
 import utils.MapUtils;
 import utils.UtilsAdrese;
 
 public class OperatiiTraseu {
+
+	private static final Logger logger = LogManager.getLogger(OperatiiTraseu.class);
 
 	public List<TraseuBorderou> getTraseuBorderou(String codBorderou, String startBorderou, String stopBorderou) throws SQLException {
 
@@ -28,7 +35,7 @@ public class OperatiiTraseu {
 		try {
 			dateBorderou = getDateBorderou(codBorderou);
 		} catch (SQLException e) {
-			System.out.println(e.getStackTrace().toString());
+			logger.error(e.toString());
 		}
 
 		String sqlString = " select to_char(c.record_time,'dd-Mon-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') datarec , c.latitude, c.longitude, nvl(c.mileage,0) kilo, "
@@ -44,7 +51,6 @@ public class OperatiiTraseu {
 			stmt.setString(1, dateBorderou.getNrMasina());
 			stmt.setString(2, startBorderou);
 			stmt.setString(3, stopBorderou);
-			
 
 			stmt.executeQuery();
 
@@ -196,7 +202,7 @@ public class OperatiiTraseu {
 		try {
 			listBorder = getCoordStartStopBorderou(codBorderou);
 		} catch (SQLException e) {
-			System.out.println(e.getStackTrace() + " sql = " + sqlString);
+			logger.error(e.toString());
 		}
 
 		listPozitii.add(0, listBorder.get(0));
@@ -217,8 +223,8 @@ public class OperatiiTraseu {
 				pozitieClient.setLongitudine(coordonate.getLongitude());
 			}
 
-		} catch (Exception ex) {
-
+		} catch (Exception e) {
+			logger.error(e.toString());
 		}
 	}
 
@@ -235,7 +241,7 @@ public class OperatiiTraseu {
 		try {
 			coordonate = MapUtils.geocodeAddress(address);
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.error(e.toString());
 		}
 
 		return coordonate;
@@ -341,6 +347,58 @@ public class OperatiiTraseu {
 
 	}
 
+	public String getTraseuInterval(String nrMasina, String dataStart, String dataStop) throws SQLException {
+
+		String results = "", strTraseu = "";
+
+		try (Connection conn = DBManager.getProdInstance().getConnection(); PreparedStatement stmt = conn.prepareStatement(SqlQueries.getTraseuInterval());) {
+
+			stmt.setString(1, nrMasina);
+			stmt.setString(2, dataStart);
+			stmt.setString(3, dataStop);
+
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+
+			int kmStart = 0, kmStop = 0, speed = 0, avgSpeed = 0, distanta = 0, maxSpeed = 0;
+
+			int i = 0;
+			while (rs.next()) {
+
+				if (i == 0)
+					kmStart = rs.getInt("mileage");
+
+				kmStop = rs.getInt("mileage");
+				speed += rs.getInt("speed");
+
+				if (rs.getInt("speed") > maxSpeed)
+					maxSpeed = rs.getInt("speed");
+
+				strTraseu += "#" + String.valueOf(rs.getDouble("latitude")) + "," + String.valueOf(rs.getDouble("longitude"));
+
+				i++;
+
+			}
+
+			distanta = kmStop - kmStart;
+
+			if (i > 0)
+				avgSpeed = speed / i;
+
+			SumarTraseu sumarTraseu = new SumarTraseu();
+			sumarTraseu.setKm(String.valueOf(distanta));
+			sumarTraseu.setVitezaMedie(String.valueOf(avgSpeed));
+			sumarTraseu.setVitezaMaxima(String.valueOf(maxSpeed));
+
+			results = HelperEvenimente.formatSumarInterval(sumarTraseu) + "@" + strTraseu;
+
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+
+		return results;
+	}
+
 	private void setCoordBound(PozitieClient pozitieClient, String dateCoord) {
 
 		if (dateCoord != null && dateCoord.contains("#")) {
@@ -350,7 +408,7 @@ public class OperatiiTraseu {
 			try {
 				coord = MapUtils.geocodeAddress(getAddress(dateCoord));
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.toString());
 			}
 
 			pozitieClient.setLatitudine(coord.getLatitude());

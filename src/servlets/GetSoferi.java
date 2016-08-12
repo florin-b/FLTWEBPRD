@@ -12,11 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Sofer;
 import database.OperatiiSoferi;
+import database.OperatiiTraseu;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @WebServlet(urlPatterns = "/getSoferi.do", asyncSupported = true)
 public class GetSoferi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger logger = LogManager.getLogger(OperatiiTraseu.class);
+	
 	public GetSoferi() {
 		super();
 
@@ -42,7 +47,7 @@ public class GetSoferi extends HttpServlet {
 		try {
 			listSoferi = operatiiSoferi.getListSoferi(filiala);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		StringBuilder option = new StringBuilder();

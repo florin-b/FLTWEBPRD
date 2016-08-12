@@ -14,9 +14,13 @@ import beans.Borderou;
 import database.OperatiiSoferi;
 import utils.Formatting;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @WebServlet(urlPatterns = "/getBorderouri.do")
 public class GetBorderouri extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(GetBorderouri.class);
 
 	public GetBorderouri() {
 		super();
@@ -43,7 +47,7 @@ public class GetBorderouri extends HttpServlet {
 		try {
 			listBorderouri = operatiiSoferi.getBorderouri(codSofer, Formatting.simpleDateFormat(dataStart), Formatting.simpleDateFormat(dataStop));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		StringBuilder option = new StringBuilder();

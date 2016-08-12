@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Traseu;
+import database.OperatiiTraseu;
 import helpers.HelperEvenimente;
 import model.CalculeazaTraseu;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @WebServlet(urlPatterns = "/getEvenimenteBorderou.do")
 public class GetEvenimenteBorderou extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(OperatiiTraseu.class);
 
 	public GetEvenimenteBorderou() {
 		super();
@@ -48,8 +53,8 @@ public class GetEvenimenteBorderou extends HttpServlet {
 			session.setAttribute("startTraseu", traseu.getSumarTraseu().getDataStart());
 			session.setAttribute("stopTraseu", traseu.getSumarTraseu().getDataStop());
 
-		} catch (Exception ex) {
-			System.out.println(ex.toString());
+		} catch (Exception e) {
+			logger.error(e.toString());
 		}
 
 		String strEvenimente = "";
@@ -59,7 +64,7 @@ public class GetEvenimenteBorderou extends HttpServlet {
 			strEvenimente = HelperEvenimente.formatEvenimente(traseu.getEvenimenteTraseu());
 
 		if (traseu.getSumarTraseu() != null)
-			strSumar = HelperEvenimente.formatSumar(traseu.getSumarTraseu());
+			strSumar = HelperEvenimente.formatSumarBorderou(traseu.getSumarTraseu());
 
 		String strTraseu = strEvenimente + "#" + strSumar;
 

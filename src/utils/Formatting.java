@@ -5,8 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Formatting {
+
+	private static final Logger logger = LogManager.getLogger(Formatting.class);
 
 	public static String simpleDateFormat(String date) {
 		String formattedDate = "";
@@ -33,8 +37,8 @@ public class Formatting {
 
 			formattedDate = formatInit.format(date);
 
-		} catch (java.text.ParseException ex) {
-			System.out.println(ex.toString());
+		} catch (java.text.ParseException e) {
+			logger.error(e.toString());
 		}
 		return formattedDate;
 

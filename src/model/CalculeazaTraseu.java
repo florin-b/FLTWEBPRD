@@ -31,6 +31,9 @@ import utils.Formatting;
 import utils.MapUtils;
 import utils.Utils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class CalculeazaTraseu {
 
 	private List<PozitieClient> pozitiiClienti;
@@ -39,6 +42,8 @@ public class CalculeazaTraseu {
 	private List<RezultatTraseu> stareTraseu;
 	private Set<RezultatTraseu> traseuFinal;
 	private String dataStartBorderou;
+
+	private static final Logger logger = LogManager.getLogger(CalculeazaTraseu.class);
 
 	private enum EvenimentClient {
 		SOSIRE, PLECARE
@@ -123,7 +128,7 @@ public class CalculeazaTraseu {
 				return true;
 
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return false;
@@ -257,11 +262,11 @@ public class CalculeazaTraseu {
 		List<BeanEvenimentTableta> evTableta = opBorderou.getEvenimenteTableta(codBorderou);
 
 		List<Client> listClienti = null;
-		
+
 		try {
 			listClienti = new OperatiiTraseu().getClientiBorderou(codBorderou);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		Collections.sort(evTableta, new EvTablComparator());
@@ -404,8 +409,6 @@ public class CalculeazaTraseu {
 		String dataStartBorderou = "";
 		String dataStopBorderou = "";
 
-		
-		
 		for (RezultatTraseu traseu : traseuBrut) {
 
 			for (PozitieClient client : pozitiiClienti) {
@@ -437,8 +440,8 @@ public class CalculeazaTraseu {
 		try {
 			dateStart = sdf.parse(dataStartBorderou);
 			dateStop = sdf.parse(dataStopBorderou);
-		} catch (Exception ex) {
-			System.out.println(ex.getStackTrace());
+		} catch (Exception e) {
+			logger.error(e.toString());
 		}
 
 		Date dateTraseu = null;
@@ -456,15 +459,13 @@ public class CalculeazaTraseu {
 				if (dateStop != null && dateTraseu.getTime() > dateStop.getTime())
 					iterator.remove();
 
-			} catch (Exception ex) {
-				System.out.println(ex.toString());
+			} catch (Exception e) {
+				logger.error(e.toString());
 			}
 
 		}
-		
-		
+
 		System.out.println("Traseu: " + traseuBorderou);
-		
 
 	}
 

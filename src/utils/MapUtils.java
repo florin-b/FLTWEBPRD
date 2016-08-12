@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.concurrent.TimeUnit;
+
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
@@ -59,6 +61,7 @@ public class MapUtils {
 		strAddress.append(address.getCountry());
 
 		GeoApiContext context = new GeoApiContext().setApiKey(Constants.GOOGLE_MAPS_API_KEY);
+		context.setRetryTimeout(0, TimeUnit.SECONDS);
 		GeocodingResult[] results = GeocodingApi.geocode(context, strAddress.toString()).await();
 
 		double latitude = results[0].geometry.location.lat;

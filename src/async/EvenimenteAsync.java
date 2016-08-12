@@ -64,7 +64,7 @@ public class EvenimenteAsync implements Runnable {
 			strEvenimente = HelperEvenimente.formatEvenimente(traseu.getEvenimenteTraseu());
 
 		if (traseu.getSumarTraseu() != null)
-			strSumar = HelperEvenimente.formatSumar(traseu.getSumarTraseu());
+			strSumar = HelperEvenimente.formatSumarBorderou(traseu.getSumarTraseu());
 
 		String strTraseu = strEvenimente + "#" + strSumar;
 

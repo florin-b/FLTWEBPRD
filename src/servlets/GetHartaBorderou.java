@@ -15,12 +15,16 @@ import beans.PozitieClient;
 import beans.TraseuBorderou;
 import database.OperatiiTraseu;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Servlet implementation class GetHartaBorderou
  */
 @WebServlet("/getHartaBorderou.do")
 public class GetHartaBorderou extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(GetHartaBorderou.class);
 
 	public GetHartaBorderou() {
 		super();
@@ -51,7 +55,7 @@ public class GetHartaBorderou extends HttpServlet {
 			pozitiiClienti = operatiiTraseu.getCoordClientiBorderou(codBorderou);
 			traseuBorderou = operatiiTraseu.getTraseuBorderou(codBorderou, startBorderou, stopBorderou);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		StringBuilder strPozitii = new StringBuilder();

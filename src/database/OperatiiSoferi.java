@@ -16,6 +16,8 @@ import beans.Sofer;
 import hibernate.HibernateUtilities;
 import queries.SqlQueries;
 
+
+
 public class OperatiiSoferi {
 
 	public List<Sofer> getListSoferi(String codFiliala) throws SQLException {

@@ -4,7 +4,12 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class MailOperations {
+
+	private static final Logger logger = LogManager.getLogger(MailOperations.class);
 
 	public static void sendMail(String mailMessage) {
 
@@ -30,8 +35,8 @@ public class MailOperations {
 
 			Transport.send(message);
 
-		} catch (MessagingException mex) {
-			System.out.println(mex.toString());
+		} catch (MessagingException e) {
+			logger.error(e.toString());
 		}
 	}
 

@@ -11,9 +11,15 @@ import beans.GpsInactiv;
 import beans.Masina;
 import database.DBManager;
 import database.OperatiiFiliala;
+import database.OperatiiTraseu;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OperatiiGps {
 
+	private static final Logger logger = LogManager.getLogger(OperatiiTraseu.class);
+	
 	public List<GpsInactiv> getGpsInactiv(String codFiliala) throws SQLException {
 
 		OperatiiFiliala opFiliala = new OperatiiFiliala();
@@ -23,7 +29,7 @@ public class OperatiiGps {
 		try {
 			listMasini = opFiliala.getMasiniFiliala(codFiliala);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		if (listMasini.size() == 0)

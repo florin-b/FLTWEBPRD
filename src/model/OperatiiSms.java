@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import beans.BeanSmsEmis;
 import database.DBManager;
 import interfaces.IOperatiiSms;
@@ -18,8 +16,6 @@ public class OperatiiSms implements IOperatiiSms {
 
 	@Override
 	public List<BeanSmsEmis> getSmsEmis(String dataSms, String filiala) throws SQLException {
-
-		
 
 		List<BeanSmsEmis> listSms = new ArrayList<>();
 
@@ -50,7 +46,7 @@ public class OperatiiSms implements IOperatiiSms {
 			}
 
 		}
-		
+
 		return listSms;
 
 	}

@@ -14,7 +14,12 @@ import beans.BorderouMasina;
 import enums.EnumStatusMasina;
 import queries.SqlQueries;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class OperatiiBorderou {
+
+	private static final Logger logger = LogManager.getLogger(OperatiiBorderou.class);
 
 	public List<BeanEvenimentTableta> getEvenimenteTableta(String codBorderou) {
 
@@ -44,7 +49,7 @@ public class OperatiiBorderou {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return listEvenimente;

@@ -36,6 +36,11 @@ public class Navigator extends SimpleTagSupport {
 		nd.setLink(String.format("%s/auth/pozitieMasiniOptiuni.jsp", root));
 		nd.setText("Pozitie masini");
 		navigationLinks.add(nd);
+		
+		nd = new NavigationDetails();
+		nd.setLink(String.format("%s/auth/traseuSoferi.jsp", root));
+		nd.setText("Traseu masina");
+		navigationLinks.add(nd);
 
 		nd = new NavigationDetails();
 		nd.setLink(String.format("%s/auth/gpsInactiv.jsp", root));

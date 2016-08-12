@@ -68,7 +68,7 @@ public class HelperEvenimente {
 
 	}
 
-	public static String formatSumar(SumarTraseu sumar) {
+	public static String formatSumarBorderou(SumarTraseu sumar) {
 		StringBuilder strResult = new StringBuilder();
 
 		strResult.append("<table class='imagetable'>");
@@ -105,6 +105,41 @@ public class HelperEvenimente {
 		strResult.append("<td>");
 		strResult.append(sumar.getKm() == null ? "" : sumar.getKm());
 		strResult.append("</td></tr>");
+
+		strResult.append("</table>");
+
+		return strResult.toString();
+	}
+
+	public static String formatSumarInterval(SumarTraseu sumar) {
+		StringBuilder strResult = new StringBuilder();
+
+		strResult.append("<table class='imagetable'>");
+		strResult.append("<th colspan='2' align='left'>Sumar</th>");
+
+		strResult.append("<tr><td width='30%'>");
+		strResult.append("Distanta parcursa");
+		strResult.append("</td>");
+
+		strResult.append("<td>");
+		strResult.append(sumar.getKm() == null ? "" : sumar.getKm());
+		strResult.append(" km</td></tr>");
+
+		strResult.append("<tr><td>");
+		strResult.append("Viteza medie");
+		strResult.append("</td>");
+
+		strResult.append("<td>");
+		strResult.append(sumar.getVitezaMedie() == null ? "" : sumar.getVitezaMedie());
+		strResult.append(" km/h</td></tr>");
+
+		strResult.append("<tr><td>");
+		strResult.append("Viteza maxima");
+		strResult.append("</td>");
+
+		strResult.append("<td>");
+		strResult.append(sumar.getVitezaMaxima() == null ? "" : sumar.getVitezaMaxima());
+		strResult.append(" km/h</td></tr>");
 
 		strResult.append("</table>");
 

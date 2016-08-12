@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,21 +18,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.User;
 import database.Account;
 
-/**
- * Servlet implementation class Controller
- */
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final Logger logger = LogManager.getLogger(Controller.class);
+
 	private DataSource ds;
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
 	public void init(ServletConfig config) throws ServletException {
 
 		try {
@@ -40,31 +40,20 @@ public class Controller extends HttpServlet {
 			ds = (DataSource) env.lookup("jdbc/myoracle_prod");
 
 		} catch (NamingException e) {
+			logger.error(e.toString());
 			throw new ServletException();
 		}
 
 	}
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public Controller() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 
@@ -73,7 +62,7 @@ public class Controller extends HttpServlet {
 		try {
 			conn = ds.getConnection();
 		} catch (SQLException e) {
-			System.out.println(e.toString());
+			logger.error(e.toString());
 			throw new ServletException();
 		}
 
@@ -107,6 +96,7 @@ public class Controller extends HttpServlet {
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
 				}
 			} catch (SQLException e) {
+				logger.error(e.toString());
 				request.setAttribute("email", "Eroare conectare baza de date.");
 			}
 

@@ -8,7 +8,14 @@ import java.util.Locale;
 
 import enums.EnumDateDiff;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import database.OperatiiTraseu;
+
 public class Utils {
+	
+	private static final Logger logger = LogManager.getLogger(OperatiiTraseu.class);
 
 	public static String dateDiff(String dateStart, String dateStop) {
 
@@ -52,7 +59,7 @@ public class Utils {
 			}
 
 		} catch (Exception e) {
-			System.out.println("dateDiff " + e.toString());
+			logger.error(e.toString());
 		}
 
 		return result.toString();
@@ -82,7 +89,7 @@ public class Utils {
 			returnValue = c1.get(Calendar.DAY_OF_YEAR) - c2.get(Calendar.DAY_OF_YEAR);
 
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			logger.error(e.toString());
 		}
 
 		return returnValue;

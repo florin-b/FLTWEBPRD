@@ -41,11 +41,15 @@ function getStareBorderou(strLocations) {
 
 function getHartaTraseuBorderou(strLocations) {
 
+	
+	
+	
 	var dateTraseu = strLocations.split('--');
 
 	var istoricTraseu = dateTraseu[0].split('#');
 	var pozitieClienti = dateTraseu[1].split('#');
-
+	
+	
 	var mapCenter = parseInt(istoricTraseu.length / 2);
 
 	var traseu = [];

@@ -13,9 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import helpers.HelperEvenimente;
 import model.OperatiiGps;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import database.OperatiiTraseu;
+
 @WebServlet("/GpsInactiv")
 public class GpsInactiv extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(OperatiiTraseu.class);
 
 	public GpsInactiv() {
 		super();
@@ -41,7 +47,7 @@ public class GpsInactiv extends HttpServlet {
 		try {
 			listGps = operatiiGps.getGpsInactiv(filiala);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 
 		return listGps;

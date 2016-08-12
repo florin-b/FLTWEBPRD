@@ -16,7 +16,8 @@ function() {
 		selectedFiliala = $("#filiale option:selected").text();
 
 		$.get('/FlotaWeb/getMasini.do', {
-			filialaSel : filiala
+			filialaSel : filiala,
+			multiple : 1
 		}, function(responseText) {
 
 			$('#listMasina').html(responseText);

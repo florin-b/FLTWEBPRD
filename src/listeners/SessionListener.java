@@ -18,7 +18,7 @@ public class SessionListener implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
 		activeSessions++;
-		logToFile();
+		
 
 	}
 
@@ -28,26 +28,6 @@ public class SessionListener implements HttpSessionListener {
 
 	}
 
-	private void logToFile() {
-
-		String xmlFilePath = "c://logs/SessionLog.txt";
-
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-		
-		Date date = new Date();
-		
-		File outputFile = new File(xmlFilePath);
-
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true))) {
-			writer.write("Active sessions at " + df.format(date) + " : " + activeSessions);
-			writer.newLine();
-			writer.flush();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
-	}
+	
 
 }

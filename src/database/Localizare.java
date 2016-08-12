@@ -27,9 +27,6 @@ public class Localizare implements ILocalizare {
 				+ " m.nr_masina, d.speed from gps_index d, gps_masini m where d.device_id in (select id from gps_masini where nr_masina in (" + strMasini
 				+ ")) and  d.device_id = m.id ";
 
-		System.out.println(sqlString);
-		
-		
 		OperatiiSoferi opSoferi = new OperatiiSoferi();
 		List<PozitieMasina> listPozitii = new ArrayList<PozitieMasina>();
 
