@@ -1,10 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,9 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.Masina;
 import database.OperatiiFiliala;
 import database.OperatiiTraseu;
+import utils.Utils;
 
 /**
  * Servlet implementation class GetMasini
@@ -55,7 +55,7 @@ public class GetMasini extends HttpServlet {
 		try {
 			listMasini = operatiiFiliala.getMasiniFiliala(codFiliala);
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		StringBuilder option = new StringBuilder();

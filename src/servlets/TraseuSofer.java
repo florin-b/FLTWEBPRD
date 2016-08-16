@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.OperatiiTraseu;
+import utils.Utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +38,7 @@ public class TraseuSofer extends HttpServlet {
 		try {
 			strTraseu = traseu.getTraseuInterval(masina, dataStart, dataStop);
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 
 		}
 

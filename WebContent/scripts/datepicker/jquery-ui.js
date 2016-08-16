@@ -4867,7 +4867,7 @@ $.extend(Datepicker.prototype, {
 			throw "Invalid arguments";
 		}
 
-		value = (typeof value === "object" ? value.toString() : value + "");
+		value = (typeof value === "object" ? valuUtils.getStackTrace(e) : value + "");
 		if (value === "") {
 			return null;
 		}
@@ -5285,7 +5285,7 @@ $.extend(Datepicker.prototype, {
 			newDate = (date == null || date === "" ? defaultDate : (typeof date === "string" ? offsetString(date) :
 				(typeof date === "number" ? (isNaN(date) ? defaultDate : offsetNumeric(date)) : new Date(date.getTime()))));
 
-		newDate = (newDate && newDate.toString() === "Invalid Date" ? defaultDate : newDate);
+		newDate = (newDate && newDatUtils.getStackTrace(e) === "Invalid Date" ? defaultDate : newDate);
 		if (newDate) {
 			newDate.setHours(0);
 			newDate.setMinutes(0);

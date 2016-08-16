@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.Borderou;
 import database.OperatiiSoferi;
 import utils.Formatting;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import utils.Utils;
 
 @WebServlet(urlPatterns = "/getBorderouri.do")
 public class GetBorderouri extends HttpServlet {
@@ -47,7 +48,7 @@ public class GetBorderouri extends HttpServlet {
 		try {
 			listBorderouri = operatiiSoferi.getBorderouri(codSofer, Formatting.simpleDateFormat(dataStart), Formatting.simpleDateFormat(dataStop));
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		StringBuilder option = new StringBuilder();

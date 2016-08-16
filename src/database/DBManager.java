@@ -8,6 +8,8 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import utils.Utils;
+
 public class DBManager {
 
 	private static DataSource dataSourcePrd;
@@ -35,7 +37,7 @@ public class DBManager {
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
 			ds = (DataSource) envContext.lookup("jdbc/myoracle_prod");
 		} catch (NamingException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return ds;
@@ -56,7 +58,7 @@ public class DBManager {
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
 			ds = (DataSource) envContext.lookup("jdbc/myoracle_tes");
 		} catch (NamingException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return ds;

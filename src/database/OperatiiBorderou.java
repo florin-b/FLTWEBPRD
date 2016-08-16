@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.BeanEvenimentTableta;
 import beans.BorderouMasina;
 import enums.EnumStatusMasina;
 import queries.SqlQueries;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import utils.Utils;
 
 public class OperatiiBorderou {
 
@@ -49,7 +50,7 @@ public class OperatiiBorderou {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return listEvenimente;

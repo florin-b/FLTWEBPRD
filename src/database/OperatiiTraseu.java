@@ -22,6 +22,7 @@ import enums.EnumTipClient;
 import helpers.HelperEvenimente;
 import queries.SqlQueries;
 import utils.MapUtils;
+import utils.Utils;
 import utils.UtilsAdrese;
 
 public class OperatiiTraseu {
@@ -35,7 +36,7 @@ public class OperatiiTraseu {
 		try {
 			dateBorderou = getDateBorderou(codBorderou);
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		String sqlString = " select to_char(c.record_time,'dd-Mon-yy hh24:mi:ss', 'NLS_DATE_LANGUAGE = AMERICAN') datarec , c.latitude, c.longitude, nvl(c.mileage,0) kilo, "
@@ -202,7 +203,7 @@ public class OperatiiTraseu {
 		try {
 			listBorder = getCoordStartStopBorderou(codBorderou);
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		listPozitii.add(0, listBorder.get(0));
@@ -224,7 +225,7 @@ public class OperatiiTraseu {
 			}
 
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 	}
 
@@ -241,7 +242,7 @@ public class OperatiiTraseu {
 		try {
 			coordonate = MapUtils.geocodeAddress(address);
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return coordonate;
@@ -408,7 +409,7 @@ public class OperatiiTraseu {
 			try {
 				coord = MapUtils.geocodeAddress(getAddress(dateCoord));
 			} catch (Exception e) {
-				logger.error(e.toString());
+				logger.error(Utils.getStackTrace(e));
 			}
 
 			pozitieClient.setLatitudine(coord.getLatitude());

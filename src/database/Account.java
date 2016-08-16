@@ -2,20 +2,20 @@ package database;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-
 import java.sql.SQLException;
-
-import beans.User;
-import beans.UserInfo;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import beans.User;
+import beans.UserInfo;
+import utils.Utils;
 
 public class Account {
 
 	private Connection conn;
 	private String errMessage;
-	
+
 	private static final Logger logger = LogManager.getLogger(Account.class);
 
 	public Account(Connection conn) {
@@ -58,7 +58,7 @@ public class Account {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 			setErrMessage(-1);
 			return false;
 

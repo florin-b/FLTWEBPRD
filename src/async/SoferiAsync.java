@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import beans.Sofer;
 import database.OperatiiSoferi;
 import utils.MailOperations;
+import utils.Utils;
 
 public class SoferiAsync implements Runnable {
 
@@ -32,7 +33,7 @@ public class SoferiAsync implements Runnable {
 		try {
 			response.getWriter().write(listSoferi());
 		} catch (IOException e) {
-			MailOperations.sendMail(e.toString());
+			MailOperations.sendMail(Utils.getStackTrace(e));
 		}
 
 		context.complete();
@@ -52,7 +53,6 @@ public class SoferiAsync implements Runnable {
 		try {
 			listSoferi = operatiiSoferi.getListSoferi(filiala);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

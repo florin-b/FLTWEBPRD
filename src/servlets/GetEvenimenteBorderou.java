@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.Traseu;
 import database.OperatiiTraseu;
 import helpers.HelperEvenimente;
 import model.CalculeazaTraseu;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import utils.Utils;
 
 @WebServlet(urlPatterns = "/getEvenimenteBorderou.do")
 public class GetEvenimenteBorderou extends HttpServlet {
@@ -54,7 +55,7 @@ public class GetEvenimenteBorderou extends HttpServlet {
 			session.setAttribute("stopTraseu", traseu.getSumarTraseu().getDataStop());
 
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		String strEvenimente = "";

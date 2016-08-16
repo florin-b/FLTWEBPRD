@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import beans.BeanSmsEmis;
-import database.OperatiiTraseu;
 import helpers.HelperSMS;
 import model.OperatiiSms;
 import utils.Formatting;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import utils.Utils;
 
 /**
  * Servlet implementation class AnalizaSmsClienti
@@ -50,7 +50,7 @@ public class AnalizaSmsClienti extends HttpServlet {
 		try {
 			listSms = opSms.getSmsEmis(Formatting.simpleDateFormat(dataSMS), "GL10");
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		writer.write(HelperSMS.formatAnalizaSMS(listSms));

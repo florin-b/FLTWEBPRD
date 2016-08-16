@@ -36,7 +36,7 @@ public class MailOperations {
 			Transport.send(message);
 
 		} catch (MessagingException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 	}
 

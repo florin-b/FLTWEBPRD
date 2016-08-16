@@ -128,7 +128,7 @@ public class CalculeazaTraseu {
 				return true;
 
 		} catch (ParseException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return false;
@@ -266,7 +266,7 @@ public class CalculeazaTraseu {
 		try {
 			listClienti = new OperatiiTraseu().getClientiBorderou(codBorderou);
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		Collections.sort(evTableta, new EvTablComparator());
@@ -353,6 +353,9 @@ public class CalculeazaTraseu {
 	}
 
 	private void setSumarTraseu(SumarTraseu sumarTraseu, List<BeanEvenimentTableta> evTableta) {
+
+		if (evTableta.size() == 0)
+			return;
 
 		BeanEvenimentTableta evStart = evTableta.get(0);
 		BeanEvenimentTableta evStop = evTableta.get(evTableta.size() - 1);
@@ -441,7 +444,7 @@ public class CalculeazaTraseu {
 			dateStart = sdf.parse(dataStartBorderou);
 			dateStop = sdf.parse(dataStopBorderou);
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		Date dateTraseu = null;
@@ -460,7 +463,7 @@ public class CalculeazaTraseu {
 					iterator.remove();
 
 			} catch (Exception e) {
-				logger.error(e.toString());
+				logger.error(Utils.getStackTrace(e));
 			}
 
 		}

@@ -38,7 +38,7 @@ public class Formatting {
 			formattedDate = formatInit.format(date);
 
 		} catch (java.text.ParseException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 		return formattedDate;
 

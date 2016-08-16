@@ -1,17 +1,18 @@
 package utils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import enums.EnumDateDiff;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import database.OperatiiTraseu;
+import enums.EnumDateDiff;
 
 public class Utils {
 	
@@ -59,7 +60,7 @@ public class Utils {
 			}
 
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return result.toString();
@@ -89,11 +90,18 @@ public class Utils {
 			returnValue = c1.get(Calendar.DAY_OF_YEAR) - c2.get(Calendar.DAY_OF_YEAR);
 
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 		}
 
 		return returnValue;
 
 	}
+	
+	public static String getStackTrace(Exception ex) {
+	    StringWriter errors = new StringWriter();
+	    ex.printStackTrace(new PrintWriter(errors));
+	    return errors.toString();
+	}
+	
 
 }

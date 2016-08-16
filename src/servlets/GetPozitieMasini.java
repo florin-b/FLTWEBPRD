@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.Localizare;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import database.Localizare;
+import utils.Utils;
 
 @WebServlet("/getPozitieMasini.do")
 public class GetPozitieMasini extends HttpServlet {
@@ -42,7 +43,7 @@ public class GetPozitieMasini extends HttpServlet {
 			try {
 				listPozitii = localizare.getPozitieMasini(listMasini);
 			} catch (SQLException e) {
-				logger.error(e.toString());
+				logger.error(Utils.getStackTrace(e));
 			}
 
 		}

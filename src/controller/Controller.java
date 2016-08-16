@@ -1,14 +1,12 @@
 package controller;
 
 import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import beans.User;
 import database.Account;
+import utils.Utils;
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
@@ -40,7 +39,7 @@ public class Controller extends HttpServlet {
 			ds = (DataSource) env.lookup("jdbc/myoracle_prod");
 
 		} catch (NamingException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 			throw new ServletException();
 		}
 
@@ -62,7 +61,7 @@ public class Controller extends HttpServlet {
 		try {
 			conn = ds.getConnection();
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(Utils.getStackTrace(e));
 			throw new ServletException();
 		}
 
@@ -96,7 +95,7 @@ public class Controller extends HttpServlet {
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
 				}
 			} catch (SQLException e) {
-				logger.error(e.toString());
+				logger.error(Utils.getStackTrace(e));
 				request.setAttribute("email", "Eroare conectare baza de date.");
 			}
 
