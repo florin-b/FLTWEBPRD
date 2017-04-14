@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import beans.Client;
+import beans.ClientNelivrat;
 import beans.GpsInactiv;
+import beans.Oprire;
 import beans.RezultatTraseu;
 import beans.SumarTraseu;
 import utils.Utils;
@@ -177,6 +179,51 @@ public class HelperEvenimente {
 
 	}
 
+	public static String formatClientiNelivrati(List<ClientNelivrat> listClienti) {
+
+		StringBuilder strResult = new StringBuilder();
+
+		if (listClienti != null && listClienti.size() > 0) {
+
+			strResult.append("<b>Marfa nu a fost livrata la urmatorii clienti:</b><p></p>");
+
+			strResult.append("<table class='imagetable'><tr>");
+			strResult.append("<th>Nr</th>");
+			strResult.append("<th>Cod client</th>");
+			strResult.append("<th>Nume client</th>");
+			strResult.append("<th>Adresa</th>");
+
+			int pos = 1;
+			for (ClientNelivrat client : listClienti) {
+
+				strResult.append("<tr><td align='center'>");
+				strResult.append(String.valueOf(pos) + ".");
+				strResult.append("</td>");
+
+				strResult.append("<td align='center'>");
+				strResult.append(client.getCodClient());
+				strResult.append("</td>");
+
+				strResult.append("<td align='left'>");
+				strResult.append(client.getNumeClient());
+				strResult.append("</td>");
+
+				strResult.append("<td align='left'>");
+				strResult.append(client.getAdresa());
+				strResult.append("</td>");
+
+				pos++;
+
+			}
+		} else {
+			strResult.append("<b>Marfa a fost livrata la toti clientii.</b><p></p>");
+
+		}
+
+		return strResult.toString();
+
+	}
+
 	private static String validareSosire(RezultatTraseu traseu) {
 		return traseu.getSosire() == null ? "" : traseu.getSosire().getData();
 
@@ -210,6 +257,24 @@ public class HelperEvenimente {
 		if (client.getNrStrada().trim().length() != 0) {
 			str.append(", ");
 			str.append(client.getNrStrada());
+		}
+
+		return str.toString();
+	}
+
+	public static String formatOpririTraseu(List<Oprire> listOpriri) {
+
+		StringBuilder str = new StringBuilder();
+
+		for (Oprire oprire : listOpriri) {
+			str.append(oprire.getData());
+			str.append("-");
+			str.append(oprire.getDurata());
+			str.append("-");
+			str.append(oprire.getPozitieGps().getLatitudine());
+			str.append("-");
+			str.append(oprire.getPozitieGps().getLongitudine());
+			str.append("!");
 		}
 
 		return str.toString();

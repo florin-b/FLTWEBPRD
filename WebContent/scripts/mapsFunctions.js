@@ -22,6 +22,9 @@ function getPozitieMasini(strLocations) {
 	for (i = 0; i < locations.length; i++) {
 
 		loc = locations[i].split(',');
+		
+		
+		
 
 		// borderouri active
 		if (loc[5] == 0) {
@@ -39,7 +42,8 @@ function getPozitieMasini(strLocations) {
 
 			google.maps.event.addListener(marker, "mouseover", (function(marker, i) {
 				return function() {
-					infowindow.setContent(locations[i].split(',')[6] + '<br>' + locations[i].split(',')[4] + ' <br>' + locations[i].split(',')[3] + ' km/h');
+					infowindow.setContent(locations[i].split(',')[6] + '<br>' + locations[i].split(',')[4] + ' <br>' + locations[i].split(',')[3] + ' km/h'
+							+ ' <br>' + locations[i].split(',')[7]);
 					infowindow.open(map, marker);
 				}
 			})(marker, i));
@@ -66,7 +70,8 @@ function getPozitieMasini(strLocations) {
 
 			google.maps.event.addListener(marker, "mouseover", (function(marker, i) {
 				return function() {
-					infowindow.setContent(locations[i].split(',')[6] + '<br>' +locations[i].split(',')[4] + ' <br>' + locations[i].split(',')[3] + ' km/h');
+					infowindow.setContent(locations[i].split(',')[6] + '<br>' + locations[i].split(',')[4] + ' <br>' + locations[i].split(',')[3] + ' km/h'
+							+ ' <br>' + locations[i].split(',')[7]);
 					infowindow.open(map, marker);
 				}
 			})(marker, i));
@@ -93,7 +98,7 @@ function getPozitieMasini(strLocations) {
 
 			google.maps.event.addListener(marker, "mouseover", (function(marker, i) {
 				return function() {
-					infowindow.setContent(locations[i].split(',')[4] + ' <br>' + locations[i].split(',')[3] + ' km/h');
+					infowindow.setContent(locations[i].split(',')[4] + ' <br>' + locations[i].split(',')[3] + ' km/h'+ ' <br>' + locations[i].split(',')[7]);
 					infowindow.open(map, marker);
 				}
 			})(marker, i));

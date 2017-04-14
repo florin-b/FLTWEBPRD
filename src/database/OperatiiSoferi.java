@@ -12,11 +12,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import beans.Borderou;
+import beans.ClientNelivrat;
 import beans.Sofer;
 import hibernate.HibernateUtilities;
 import queries.SqlQueries;
-
-
+import utils.UtilsAdrese;
 
 public class OperatiiSoferi {
 
@@ -79,8 +79,7 @@ public class OperatiiSoferi {
 			stmt.setString(4, codSofer);
 			stmt.setString(5, dataStart);
 			stmt.setString(6, dataStop);
-			
-			
+
 			stmt.executeQuery();
 
 			ResultSet rs = stmt.getResultSet();
@@ -99,12 +98,11 @@ public class OperatiiSoferi {
 
 	}
 
-	public String getBorderouCurent(String nrMasina) throws SQLException {
+	public String getBorderouCurent(Connection conn, String nrMasina) throws SQLException {
 
 		String borderouCurent = "";
-		Connection conn = DBManager.getProdInstance().getConnection();
 
-		PreparedStatement stmt = conn.prepareStatement(SqlQueries.getBorderouActiv().toString());
+		PreparedStatement stmt = conn.prepareStatement(SqlQueries.getBorderouActiv());
 
 		stmt.setString(1, nrMasina);
 
@@ -114,13 +112,71 @@ public class OperatiiSoferi {
 			borderouCurent = rs.getString("numarb");
 		}
 
-		if (rs != null)
-			rs.close();
-
-		if (conn != null)
-			conn.close();
+		stmt.close();
 
 		return borderouCurent;
+	}
+
+	public String getTipMasina(Connection conn, String nrMasina) throws SQLException {
+
+		String tipMasina = "";
+
+		PreparedStatement stmt = conn.prepareStatement(SqlQueries.getTipMasina());
+
+		stmt.setString(1, nrMasina);
+		ResultSet rs = stmt.executeQuery();
+
+		//rs.next();
+
+		tipMasina = rs.next() ? rs.getString("tipMasina") : " ";
+
+		stmt.close();
+
+		return tipMasina;
+
+	}
+
+	public List<ClientNelivrat> getClientiBordNelivrati(String codSofer) throws SQLException {
+
+		String borderou = "";
+
+		List<ClientNelivrat> listClienti = new ArrayList<ClientNelivrat>();
+
+		try (Connection conn = DBManager.getProdInstance().getConnection(); PreparedStatement stmt = conn.prepareStatement(SqlQueries.getBorderouSofer());) {
+
+			stmt.setString(1, codSofer);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				borderou = rs.getString("document");
+			}
+
+			PreparedStatement stmtInner = conn.prepareStatement(SqlQueries.getClientiBordNelivrati());
+
+			stmtInner.setString(1, borderou);
+
+			ResultSet rsInner = stmtInner.executeQuery();
+
+			while (rsInner.next()) {
+
+				ClientNelivrat client = new ClientNelivrat();
+				client.setCodClient(rsInner.getString("cod_client"));
+				client.setNumeClient(rsInner.getString("name1"));
+				client.setAdresa(
+						UtilsAdrese.getNumeJudet(rsInner.getString("region")) + ", " + rsInner.getString("city1") + ", " + rsInner.getString("street"));
+
+				client.setTelefon(rsInner.getString("tel_client"));
+
+				listClienti.add(client);
+
+			}
+
+			DBManager.closeConnection(stmtInner, rsInner);
+
+		}
+
+		return listClienti;
 	}
 
 }

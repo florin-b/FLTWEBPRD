@@ -60,15 +60,18 @@ function() {
 
 			closeWaitingDialog();
 
-			var strResponse = responseText.split("@", 2);
+			var strResponse = responseText.split("@", 3);
 
+			
+			
 			var sumar = strResponse[0];
 			var traseu = strResponse[1];
+			var opriri = strResponse[2];
 
 			document.getElementById('sumarActivitate').style.visibility = "visible";
 			$('#sumarActivitate').html(sumar);
 			document.getElementById('hartaTraseu').style.visibility = "visible";
-			getHartaTraseuInterval(traseu);
+			getHartaTraseuInterval(traseu, opriri);
 
 		});
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +16,9 @@ import beans.BeanBoundBord;
 import beans.Client;
 import beans.CoordonateGps;
 import beans.DateBorderou;
+import beans.Oprire;
 import beans.PozitieClient;
+import beans.PozitieGps;
 import beans.SumarTraseu;
 import beans.TraseuBorderou;
 import enums.EnumTipClient;
@@ -358,27 +361,65 @@ public class OperatiiTraseu {
 			stmt.setString(2, dataStart);
 			stmt.setString(3, dataStop);
 
+			
+			
+			
+			
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
 
 			int kmStart = 0, kmStop = 0, speed = 0, avgSpeed = 0, distanta = 0, maxSpeed = 0;
 
+			List<Oprire> listOpriri = new ArrayList<Oprire>();
+			Oprire oprire = null;
+			Date dataStartOprire = null, dataStopOprire = null, ultimaInreg = null;
+
 			int i = 0;
+			int instantSpeed = 0;
+
 			while (rs.next()) {
 
 				if (i == 0)
 					kmStart = rs.getInt("mileage");
 
 				kmStop = rs.getInt("mileage");
-				speed += rs.getInt("speed");
 
-				if (rs.getInt("speed") > maxSpeed)
+				instantSpeed = rs.getInt("speed");
+
+				speed += instantSpeed;
+
+				if (instantSpeed > maxSpeed)
 					maxSpeed = rs.getInt("speed");
+
+				if (0 == instantSpeed) {
+					if (oprire == null) {
+						oprire = new Oprire();
+						oprire.setPozitieGps(new PozitieGps(null, rs.getDouble("latitude"), rs.getDouble("longitude")));
+						dataStartOprire = Utils.getDate(rs.getString("record_time"));
+						oprire.setData(Utils.getShortDate(dataStartOprire));
+					}
+
+				} else {
+					if (dataStartOprire != null) {
+						dataStopOprire = Utils.getDate(rs.getString("record_time"));
+						oprire.setDurata(Utils.dateDiff(dataStartOprire, dataStopOprire));
+						listOpriri.add(oprire);
+						oprire = null;
+						dataStartOprire = null;
+					}
+				}
+
+				ultimaInreg = Utils.getDate(rs.getString("record_time"));
 
 				strTraseu += "#" + String.valueOf(rs.getDouble("latitude")) + "," + String.valueOf(rs.getDouble("longitude"));
 
 				i++;
 
+			}
+
+			if (dataStartOprire != null) {
+				oprire.setDurata(Utils.dateDiff(dataStartOprire, ultimaInreg));
+				listOpriri.add(oprire);
 			}
 
 			distanta = kmStop - kmStart;
@@ -391,7 +432,9 @@ public class OperatiiTraseu {
 			sumarTraseu.setVitezaMedie(String.valueOf(avgSpeed));
 			sumarTraseu.setVitezaMaxima(String.valueOf(maxSpeed));
 
-			results = HelperEvenimente.formatSumarInterval(sumarTraseu) + "@" + strTraseu;
+			String opriri = HelperEvenimente.formatOpririTraseu(listOpriri);
+
+			results = HelperEvenimente.formatSumarInterval(sumarTraseu) + "@" + strTraseu + "@" + opriri;
 
 		} catch (Exception ex) {
 			logger.error(ex.toString());

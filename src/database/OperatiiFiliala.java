@@ -11,6 +11,7 @@ import beans.Filiala;
 import beans.Masina;
 import enums.EnumFiliale;
 
+
 public class OperatiiFiliala {
 
 	public List<Filiala> getListFilialeStatic() {

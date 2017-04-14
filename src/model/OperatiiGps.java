@@ -37,7 +37,7 @@ public class OperatiiGps {
 			return new ArrayList<GpsInactiv>();
 
 		String sqlString = " select b.nr_masina, sysdate - record_time interval from gps_index a, gps_masini b where   a.device_id in ("
-				+ formatMasini(listMasini) + ") and a.device_id = b.id and sysdate - record_time > 1 order by interval ";
+						+ formatMasini(listMasini) + ") and a.device_id = b.id and sysdate - record_time > 1 order by interval ";
 
 		try (Connection conn = DBManager.getProdInstance().getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sqlString, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);) {

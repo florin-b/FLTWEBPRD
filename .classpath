@@ -24,5 +24,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Aplicatii/Java/FlotaWebApp/MyLibs/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="D:/Aplicatii/Java/FlotaWebApp/MyLibs/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -36,7 +36,7 @@ public class Navigator extends SimpleTagSupport {
 		nd.setLink(String.format("%s/auth/pozitieMasiniOptiuni.jsp", root));
 		nd.setText("Pozitie masini");
 		navigationLinks.add(nd);
-		
+
 		nd = new NavigationDetails();
 		nd.setLink(String.format("%s/auth/traseuSoferi.jsp", root));
 		nd.setText("Traseu masina");
@@ -52,7 +52,18 @@ public class Navigator extends SimpleTagSupport {
 			nd.setLink(String.format("%s/auth/analizaSmsClienti.jsp", root));
 			nd.setText("SMS Clienti");
 			navigationLinks.add(nd);
+
 		}
+
+		nd = new NavigationDetails();
+		nd.setLink(String.format("%s/auth/gestiuneTablete.jsp", root));
+		nd.setText("Gestiune tablete");
+		navigationLinks.add(nd);
+
+		nd = new NavigationDetails();
+		nd.setLink(String.format("%s/auth/avarieMasina.jsp", root));
+		nd.setText("Avarie masina");
+		navigationLinks.add(nd);
 
 		nd = new NavigationDetails();
 		nd.setLink(String.format("%s/exit.jsp", root));

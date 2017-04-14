@@ -1,6 +1,12 @@
-function getHartaTraseuInterval(strResults) {
+function getHartaTraseuInterval(strTraseu, strOpriri) {
 
-	var istoricTraseu = strResults.split('#');
+	var istoricTraseu = strTraseu.split('#');
+	
+	
+	
+	var arrayOpriri = strOpriri.split("!");
+	
+	
 
 	var mapCenter = parseInt(istoricTraseu.length / 2);
 
@@ -46,6 +52,44 @@ function getHartaTraseuInterval(strResults) {
 		strokeWeight : 3
 	});
 
+	
+	var oprireMarker;
+	var infowindow = new google.maps.InfoWindow();
+	
+	var client;
+	for (var j = 0; j < arrayOpriri.length; j++) {
+
+		try {
+
+			client = arrayOpriri[j].split('-');
+
+			oprireMarker = new MarkerWithLabel({
+				position : new google.maps.LatLng(client[2], client[3]),
+				labelContent : client[1],
+				map : map,
+				icon : '../images/stop-icon.png',
+				labelAnchor : new google.maps.Point(22, 0),
+				labelClass : "labels",
+				labelStyle : {
+					opacity : 0.75
+				}
+			});
+
+			google.maps.event.addListener(oprireMarker, "mouseover", (function(
+					oprireMarker, j) {
+				return function() {
+					infowindow.setContent(arrayOpriri[j].split('-')[0]);
+					infowindow.open(map, oprireMarker);
+				}
+			})(oprireMarker, j));
+		} catch (err) {
+			alert(err);
+		}
+
+	}
+	
+	
+	
 	traseuPath.setMap(map);
 
 	animateCircle(traseuPath);
@@ -60,5 +104,5 @@ function animateCircle(line) {
 		var icons = line.get('icons');
 		icons[0].offset = (count / 2) + '%';
 		line.set('icons', icons);
-	}, 20);
+	}, 250);
 }

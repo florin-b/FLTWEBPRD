@@ -440,6 +440,10 @@ footer p a:hover {
 	display: block;
 }
 
+.inputType {
+	padding: 5px 5px;
+}
+
 @media screen and (max-width: 740px) {
 	body {
 		font-size: 0.9em;

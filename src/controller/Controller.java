@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 
 import beans.User;
 import database.Account;
+import database.DBManager;
+import oracle.jdbc.pool.OracleDataSource;
 import utils.Utils;
 
 @WebServlet("/Controller")
@@ -33,15 +32,19 @@ public class Controller extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 
+		/*
 		try {
+			
 			InitialContext initContext = new InitialContext();
 			Context env = (Context) initContext.lookup("java:comp/env");
 			ds = (DataSource) env.lookup("jdbc/myoracle_prod");
+			
 
 		} catch (NamingException e) {
 			logger.error(Utils.getStackTrace(e));
 			throw new ServletException();
 		}
+		*/
 
 	}
 
@@ -59,7 +62,7 @@ public class Controller extends HttpServlet {
 		Connection conn = null;
 
 		try {
-			conn = ds.getConnection();
+			conn = DBManager.getProdInstance().getConnection();
 		} catch (SQLException e) {
 			logger.error(Utils.getStackTrace(e));
 			throw new ServletException();
@@ -117,5 +120,9 @@ public class Controller extends HttpServlet {
 			}
 
 	}
+	
+	
+	
+	
 
 }

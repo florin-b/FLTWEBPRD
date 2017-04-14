@@ -16,7 +16,6 @@
 	text-shadow: #FE6 0 1px 0
 }
 
-
 table.imagetable {
 	font-family: verdana, arial, sans-serif;
 	font-size: 11px;
@@ -41,4 +40,14 @@ table.imagetable td {
 	padding: 8px;
 	border-style: solid;
 	border-color: #999999;
+}
+
+.dropdown {
+	border: 1px solid #111;
+	background: transparent;
+	padding: 5px 35px 5px 5px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	height: 34px;
+	appearance: none;
 }
