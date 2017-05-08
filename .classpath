@@ -17,7 +17,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Aplicatii/Java/FlotaWebApp/javax.mail-api-1.4.7.jar/javax.mail-api-1.4.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -26,5 +25,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Aplicatii/Java/FlotaWebApp/MyLibs/jaxrpc.jar"/>
 	<classpathentry kind="lib" path="D:/Aplicatii/Java/FlotaWebApp/MyLibs/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/Aplicatii/Java/jars/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

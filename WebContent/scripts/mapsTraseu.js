@@ -62,6 +62,9 @@ function getHartaTraseuInterval(strTraseu, strOpriri) {
 		try {
 
 			client = arrayOpriri[j].split('-');
+			
+			
+		
 
 			oprireMarker = new MarkerWithLabel({
 				position : new google.maps.LatLng(client[2], client[3]),

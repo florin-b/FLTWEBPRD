@@ -29,7 +29,7 @@ public class MailOperations {
 
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-			message.setSubject("Distributie");
+			message.setSubject("FlotaWeb");
 
 			message.setText(mailMessage);
 

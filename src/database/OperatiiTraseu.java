@@ -24,6 +24,7 @@ import beans.TraseuBorderou;
 import enums.EnumTipClient;
 import helpers.HelperEvenimente;
 import queries.SqlQueries;
+import utils.MailOperations;
 import utils.MapUtils;
 import utils.Utils;
 import utils.UtilsAdrese;
@@ -361,10 +362,6 @@ public class OperatiiTraseu {
 			stmt.setString(2, dataStart);
 			stmt.setString(3, dataStop);
 
-			
-			
-			
-			
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
 
@@ -396,7 +393,9 @@ public class OperatiiTraseu {
 						oprire = new Oprire();
 						oprire.setPozitieGps(new PozitieGps(null, rs.getDouble("latitude"), rs.getDouble("longitude")));
 						dataStartOprire = Utils.getDate(rs.getString("record_time"));
-						oprire.setData(Utils.getShortDate(dataStartOprire));
+						//oprire.setData(Utils.getShortDate(dataStartOprire));
+						oprire.setData(rs.getString("record_time"));
+						
 					}
 
 				} else {
@@ -435,6 +434,9 @@ public class OperatiiTraseu {
 			String opriri = HelperEvenimente.formatOpririTraseu(listOpriri);
 
 			results = HelperEvenimente.formatSumarInterval(sumarTraseu) + "@" + strTraseu + "@" + opriri;
+			
+			
+			
 
 		} catch (Exception ex) {
 			logger.error(ex.toString());

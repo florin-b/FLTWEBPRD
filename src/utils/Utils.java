@@ -99,7 +99,7 @@ public class Utils {
 	}
 
 	public static Date getDate(String stringDate) {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy HH:mm:ss", new Locale("ro"));
+		DateFormat dateFormat = new SimpleDateFormat("dd.MMM.yy HH:mm:ss", new Locale("en"));
 		Date date = new Date();
 
 		try {
@@ -113,7 +113,9 @@ public class Utils {
 
 	public static String getShortDate(Date longDate) {
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, new Locale("ro"));
+
 		return df.format(longDate);
+
 	}
 
 	public static String dateDiff(Date dateStart, Date dateStop) {

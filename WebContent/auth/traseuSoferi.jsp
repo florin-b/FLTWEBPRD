@@ -88,7 +88,7 @@ div.map_div {
 							<td valign="top" class="option_block">Masina<br> <br>
 								<div id="listMasina"></div>
 							</td>
-							<td valign="top" class="option_block">Interval<br> <br>
+							<td valign="top" class="block_large">Interval<br> <br>
 								<div id="intervalDiv" style="visibility: hidden">
 									<p>
 										Start: <input type="text" id="datepickerStart" size="13"> <input type="text" id="timepickerStart" class="timepickerStart" size="13" />

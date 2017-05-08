@@ -44,7 +44,7 @@ MarkerLabel_.prototype.onAdd = function () {
 
   this.listeners_ = [
     google.maps.event.addDomListener(this.eventDiv_, "click", function (e) {
-      if (cIgnoreClick) { // Ignore the click reported when a label drag ends
+      if (cIgnoreClick) { 
         cIgnoreClick = false;
       } else {
         google.maps.event.trigger(me.marker_, "click", e);
@@ -86,7 +86,7 @@ MarkerLabel_.prototype.onRemove = function () {
   this.labelDiv_.parentNode.removeChild(this.labelDiv_);
   this.eventDiv_.parentNode.removeChild(this.eventDiv_);
 
-  // Remove event listeners:
+ 
   for (i = 0; i < this.listeners_.length; i++) {
     google.maps.event.removeListener(this.listeners_[i]);
   }
@@ -125,10 +125,10 @@ MarkerLabel_.prototype.setStyles = function () {
   this.labelDiv_.className = this.marker_.get("labelClass");
   this.eventDiv_.className = this.labelDiv_.className;
 
-  // Clear existing inline style values:
+ 
   this.labelDiv_.style.cssText = "";
   this.eventDiv_.style.cssText = "";
-  // Apply style values defined in the labelStyle parameter:
+  
   labelStyle = this.marker_.get("labelStyle");
   for (i in labelStyle) {
     if (labelStyle.hasOwnProperty(i)) {
@@ -143,18 +143,18 @@ MarkerLabel_.prototype.setStyles = function () {
 MarkerLabel_.prototype.setMandatoryStyles = function () {
   this.labelDiv_.style.position = "absolute";
   this.labelDiv_.style.overflow = "hidden";
-  // Make sure the opacity setting causes the desired effect on MSIE:
+ 
   if (typeof this.labelDiv_.style.opacity !== "undefined") {
     this.labelDiv_.style.filter = "alpha(opacity=" + (this.labelDiv_.style.opacity * 100) + ")";
   }
 
   this.eventDiv_.style.position = this.labelDiv_.style.position;
   this.eventDiv_.style.overflow = this.labelDiv_.style.overflow;
-  this.eventDiv_.style.opacity = 0.01; // Don't use 0; DIV won't be clickable on MSIE
-  this.eventDiv_.style.filter = "alpha(opacity=1)"; // For MSIE
+  this.eventDiv_.style.opacity = 0.01; 
+  this.eventDiv_.style.filter = "alpha(opacity=1)"; 
   
   this.setAnchor();
-  this.setPosition(); // This also updates zIndex, if necessary.
+  this.setPosition(); 
   this.setVisible();
 };
 

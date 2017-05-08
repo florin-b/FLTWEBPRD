@@ -92,7 +92,7 @@ public class SqlQueries {
 
 	public static String getTraseuInterval() {
 		StringBuilder sqlString = new StringBuilder();
-		sqlString.append(" select x.longitude, x.latitude, x.mileage, x.speed, to_char(x.record_time,'dd-Mon-yy hh24:mi:ss') record_time from ");
+		sqlString.append(" select x.longitude, x.latitude, x.mileage, x.speed, to_char(x.record_time,'dd.Mon.yyyy hh24:mi:ss','NLS_DATE_LANGUAGE = AMERICAN') record_time from ");
 		sqlString.append(" (select longitude, latitude, mileage, speed, record_time from gps_date where device_id = ");
 		sqlString.append(" (select id from gps_masini where nr_masina =?) and record_time ");
 		sqlString.append(" between to_date(?,'dd-mm-yyyy HH24:mi') and to_date(?,'dd-mm-yyyy HH24:mi')  order by record_time) x ");
