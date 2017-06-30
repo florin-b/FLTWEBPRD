@@ -8,6 +8,7 @@ import com.google.maps.model.GeocodingResult;
 
 import beans.Address;
 import beans.CoordonateGps;
+import beans.GoogleContext;
 
 public class MapUtils {
 
@@ -36,6 +37,9 @@ public class MapUtils {
 	public static CoordonateGps geocodeAddress(Address address) throws Exception {
 		CoordonateGps coordonateGps = null;
 
+		double latitude = 0;
+		double longitude = 0;
+
 		StringBuilder strAddress = new StringBuilder();
 
 		if (address.getStreet() != null && !address.getStreet().equals("")) {
@@ -60,12 +64,12 @@ public class MapUtils {
 
 		strAddress.append(address.getCountry());
 
-		GeoApiContext context = new GeoApiContext().setApiKey(Constants.GOOGLE_MAPS_API_KEY);
-		context.setRetryTimeout(0, TimeUnit.SECONDS);
+		GeoApiContext context = GoogleContext.getContext();
+
 		GeocodingResult[] results = GeocodingApi.geocode(context, strAddress.toString()).await();
 
-		double latitude = results[0].geometry.location.lat;
-		double longitude = results[0].geometry.location.lng;
+		latitude = results[0].geometry.location.lat;
+		longitude = results[0].geometry.location.lng;
 
 		coordonateGps = new CoordonateGps(latitude, longitude);
 

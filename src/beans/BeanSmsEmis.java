@@ -9,7 +9,6 @@ public class BeanSmsEmis {
 	private String client;
 	private String dataSosireClient;
 	private String dataEmitereSms;
-	private String interval;
 
 	public String getCodSofer() {
 		return codSofer;

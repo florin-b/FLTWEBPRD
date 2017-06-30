@@ -8,6 +8,8 @@ public class Constants {
 	public static double VITEZA_MINIMA_PLECARE_CLIENT = 10;
 	public static double VITEZA_MINIMA_PLECARE_FILIALA = 30;
 	public static String BEANS_XML = "mybeans.xml";
-	public static String GOOGLE_MAPS_API_KEY = "AIzaSyCO29NKFuNalBKo4tXhsvHBWYGYT6aN7ZY";
+	public static String GOOGLE_MAPS_API_KEY = "AIzaSyDdbZu6WLpCa6QFkcUe5y6Hf38-gAy5yf0";
+	
+	
 
 }

@@ -88,29 +88,40 @@ div.map_div {
 
 
 							<td valign="top" class="option_block">Data<br> <br>
-								<div id="intervalDiv" >
+								<div id="intervalDiv">
 									<p>
 										<input type="text" id="datepickerStart">
+										<br>Filiala<br>
+										<tagFiliale:filiale name="filiale" id="filiale" />
+										
 									</p>
+
 									<p>
 										<button type="submit" id="showDocumente" class="styled-button-1">Afiseaza</button>
 									</p>
 								</div>
-							</td>
+								
 							
+									
+								
+							</td>
+							<td>
+								<div id="sumarActivitate"></div>
+							</td>
+
 
 						</tr>
-						
+
 						<tr>
 							<td valign="top" colspan='4'>
 								<div id="rezultatActivitate"></div>
 							</td>
 						</tr>
 
-						
 
 
-						
+
+
 						<tr>
 							<td colspan='4'>
 								<div id="hartaTraseu" class='map_div'></div>

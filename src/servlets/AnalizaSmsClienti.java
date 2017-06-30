@@ -34,12 +34,14 @@ public class AnalizaSmsClienti extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String dataSMS = request.getParameter("dataSmsTrimis");
+
+		String filiala = request.getParameter("filSel");
 
 		PrintWriter writer = response.getWriter();
 
@@ -48,7 +50,7 @@ public class AnalizaSmsClienti extends HttpServlet {
 		List<BeanSmsEmis> listSms = null;
 
 		try {
-			listSms = opSms.getSmsEmis(Formatting.simpleDateFormat(dataSMS), "GL10");
+			listSms = opSms.getSmsEmis(Formatting.simpleDateFormat(dataSMS), filiala);
 		} catch (SQLException e) {
 			logger.error(Utils.getStackTrace(e));
 		}

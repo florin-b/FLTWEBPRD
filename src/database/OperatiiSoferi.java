@@ -68,6 +68,9 @@ public class OperatiiSoferi {
 				+ " select numarb, trunc(a.data_e) dataEmitere, 'true' activ from borderouri a where  cod_sofer =:codSofer and "
 				+ " data_e between to_date(:dataStart,'yyyymmdd')  and to_date(:dataStop,'yyyymmdd') order by dataEmitere ";
 
+		
+		
+		
 		List<Borderou> listBorderouri = new ArrayList<Borderou>();
 
 		try (Connection conn = DBManager.getProdInstance().getConnection();

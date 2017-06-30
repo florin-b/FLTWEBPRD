@@ -62,7 +62,7 @@ function getHartaTraseuBorderou(strLocations) {
 			centerLocation = new google.maps.LatLng(loc[0], loc[1]);
 
 		}
-
+		
 		traseu.push(position);
 	}
 
