@@ -27,7 +27,7 @@
 
 <link rel="stylesheet" href="../css/common/commonStyles.css" type="text/css" />
 
-<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBhGZckc6WAio9WiiLstQTTpVtAvQ7kIEc'></script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBaT9RJ8eWNEP0bAqybJUo9cfXgnlR9JxM'></script>
 <script type="text/javascript" src='../scripts/markerwithlabel.js'></script>
 
 

@@ -65,7 +65,7 @@ public class Controller extends HttpServlet {
 			conn = DBManager.getProdInstance().getConnection();
 		} catch (SQLException e) {
 			logger.error(Utils.getStackTrace(e));
-			throw new ServletException();
+			
 		}
 
 		Account account = new Account(conn);

@@ -1,6 +1,7 @@
 package tags;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
@@ -28,21 +29,15 @@ public class GetFilialeTag extends SimpleTagSupport {
 		out.print(String.format(ATTR_TEMPLATE, "id", this.id));
 		out.println(">");
 
-		OperatiiFiliala operatiiFiliala = new OperatiiFiliala();
-
-		String filialaUser = UserInfo.getInstance().getFiliala();
-
-		List<Filiala> listFiliale = operatiiFiliala.getListFilialeStatic();
+		List<Filiala> listFiliale = getFilialeAcces();
 
 		for (Filiala filiala : listFiliale) {
 
-			//if (filiala.getNume().contains(filialaUser)) {
-				out.print("  <option value='");
-				out.print(filiala.getCod());
-				out.print("'>");
-				out.print(filiala.getNume());
-				out.println("</option>");
-			//}
+			out.print("  <option value='");
+			out.print(filiala.getCod());
+			out.print("'>");
+			out.print(filiala.getNume());
+			out.println("</option>");
 
 		}
 
@@ -56,6 +51,53 @@ public class GetFilialeTag extends SimpleTagSupport {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	private String getNumeFilialaUser() {
+		String filialaUser = UserInfo.getInstance().getFiliala();
+
+		if (filialaUser.equals("ORADEA"))
+			filialaUser = "BIHOR";
+		else if (filialaUser.equals("CRAIOVA"))
+			filialaUser = "DOLJ";
+		else if (filialaUser.equals("DEVA"))
+			filialaUser = "HUNEDOARA";
+		else if (filialaUser.equals("BAIA"))
+			filialaUser = "MARAMURES";
+		else if (filialaUser.equals("PIATRA"))
+			filialaUser = "NEAMT";
+		else if (filialaUser.equals("PLOIESTI"))
+			filialaUser = "PRAHOVA";
+		else if (filialaUser.equals("FOCSANI"))
+			filialaUser = "VRANCEA";
+		else if (filialaUser.equals("PITESTI"))
+			filialaUser = "ARGES";
+
+		return filialaUser;
+	}
+
+	private List<Filiala> getFilialeAcces() {
+
+		List<Filiala> listFiliale;
+
+		if (UserInfo.getInstance().getFiliala().equals("GL_CENTRAL")) {
+			if (UserInfo.getInstance().getTipAcces().equals("20") || UserInfo.getInstance().getTipAcces().equals("13"))
+				listFiliale = OperatiiFiliala.getListFilialeStatic();
+			else {
+				Filiala filiala = new Filiala();
+				filiala.setCod("GL90");
+				filiala.setNume("GALATI CENTRAL");
+				listFiliale = new ArrayList<>();
+				listFiliale.add(filiala);
+			}
+		} else
+			listFiliale = OperatiiFiliala.getListFiliale(getNumeFilialaUser());
+
+		if ((UserInfo.getInstance().getTipAcces().equals("20") || UserInfo.getInstance().getTipAcces().equals("13"))
+				&& UserInfo.getInstance().getFiliala().equals("GL_CENTRAL"))
+			listFiliale = OperatiiFiliala.getListFilialeStatic();
+
+		return listFiliale;
 	}
 
 }

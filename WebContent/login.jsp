@@ -33,11 +33,11 @@
 				<form method="post" class="login active" action="<%=response.encodeURL("Controller?action=dologin")%>">
 					<h3>Login</h3>
 					<div>
-						<label class="label_style">Utilizator:</label> <input type="text" name="name" class="field_text_style" value="androag" />
+						<label class="label_style">Utilizator:</label> <input type="text" name="name" class="field_text_style"  />
 
 					</div>
 					<div>
-						<label class="label_style">Parola: </label> <input type="password" name="password" class="field_text_style" value="112" />
+						<label class="label_style">Parola: </label> <input type="password" name="password" class="field_text_style"  />
 
 					</div>
 					<div class="bottom">

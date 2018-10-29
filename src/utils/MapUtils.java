@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.concurrent.TimeUnit;
-
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;

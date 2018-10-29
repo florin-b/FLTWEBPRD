@@ -43,6 +43,11 @@ public class Account {
 
 			callableStatement.execute();
 
+			if (!isAccesPermited(callableStatement.getString(6))) {
+				setErrMessage(41);
+				return false;
+			}
+
 			if (callableStatement.getInt(3) == 3) {
 				user.setFiliala(callableStatement.getString(5));
 				user.setUserName(callableStatement.getString(9));
@@ -87,6 +92,10 @@ public class Account {
 		case 4:
 			errMessage = "Cont inactiv";
 			break;
+
+		case 41:
+			errMessage = "Acces interzis";
+			break;
 		default:
 			errMessage = "Eroare conectare bd.";
 			break;
@@ -101,6 +110,13 @@ public class Account {
 
 	public void setErrMessage(String errMessage) {
 		this.errMessage = errMessage;
+	}
+
+	private boolean isAccesPermited(String codAcces) {
+		if (codAcces.equals("11") || codAcces.equals("16") || codAcces.equals("65") || codAcces.equals("20") || codAcces.equals("13") || codAcces.equals("19"))
+			return true;
+		else
+			return false;
 	}
 
 }

@@ -11,10 +11,9 @@ import beans.Filiala;
 import beans.Masina;
 import enums.EnumFiliale;
 
-
 public class OperatiiFiliala {
 
-	public List<Filiala> getListFilialeStatic() {
+	public static List<Filiala> getListFilialeStatic() {
 		Filiala filiala = null;
 		List<Filiala> listFiliale = new ArrayList<>();
 
@@ -55,6 +54,26 @@ public class OperatiiFiliala {
 		}
 
 		return listMasini;
+
+	}
+
+	public static List<Filiala> getListFiliale(String numeFiliala) {
+
+
+		Filiala filiala = null;
+		List<Filiala> listFiliale = new ArrayList<>();
+
+		for (EnumFiliale enumF : EnumFiliale.values()) {
+
+			if (enumF.getNume().toLowerCase().equals(numeFiliala.toLowerCase())) {
+				filiala = new Filiala();
+				filiala.setCod(enumF.getCod());
+				filiala.setNume(enumF.getNume().toUpperCase());
+				listFiliale.add(filiala);
+			}
+
+		}
+		return listFiliale;
 
 	}
 

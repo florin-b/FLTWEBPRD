@@ -43,4 +43,9 @@ public class UserInfo {
 		this.tipAcces = tipAcces;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfo [nume=" + nume + ", filiala=" + filiala + ", tipAcces=" + tipAcces + "]";
+	}
+
 }
