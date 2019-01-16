@@ -83,7 +83,8 @@ div.map_div {
 						<br>
 
 						<tr id='optionsRow'>
-							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" />
+							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" fili="${sessionScope.user.filiala}"
+									tipAcces="${sessionScope.user.tipAcces}"/>
 							</td>
 							<td valign="top" class="option_block">Masina<br> <br>
 								<div id="listMasina"></div>

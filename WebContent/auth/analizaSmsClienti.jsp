@@ -92,7 +92,8 @@ div.map_div {
 									<p>
 										<input type="text" id="datepickerStart">
 										<br>Filiala<br>
-										<tagFiliale:filiale name="filiale" id="filiale" />
+										<tagFiliale:filiale name="filiale" id="filiale" fili="${sessionScope.user.filiala}"
+									tipAcces="${sessionScope.user.tipAcces}"/>
 										
 									</p>
 

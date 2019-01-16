@@ -10,6 +10,7 @@ import java.util.List;
 import beans.Filiala;
 import beans.Masina;
 import enums.EnumFiliale;
+import enums.EnumFilialeGL;
 
 public class OperatiiFiliala {
 
@@ -26,6 +27,22 @@ public class OperatiiFiliala {
 
 		return listFiliale;
 	}
+	
+	
+	public static List<Filiala> getListFilialeGL() {
+		Filiala filiala = null;
+		List<Filiala> listFiliale = new ArrayList<>();
+
+		for (EnumFilialeGL enumF : EnumFilialeGL.values()) {
+			filiala = new Filiala();
+			filiala.setCod(enumF.getCod());
+			filiala.setNume(enumF.getNume().toUpperCase());
+			listFiliale.add(filiala);
+		}
+
+		return listFiliale;
+	}	
+	
 
 	public List<Masina> getMasiniFiliala(String codFiliala) throws SQLException {
 

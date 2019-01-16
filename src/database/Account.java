@@ -51,6 +51,7 @@ public class Account {
 			if (callableStatement.getInt(3) == 3) {
 				user.setFiliala(callableStatement.getString(5));
 				user.setUserName(callableStatement.getString(9));
+				user.setTipAcces(callableStatement.getString(6));
 
 				UserInfo.getInstance().setFiliala(user.getFiliala());
 				UserInfo.getInstance().setNume(user.getName());
@@ -113,7 +114,8 @@ public class Account {
 	}
 
 	private boolean isAccesPermited(String codAcces) {
-		if (codAcces.equals("11") || codAcces.equals("16") || codAcces.equals("65") || codAcces.equals("20") || codAcces.equals("13") || codAcces.equals("19"))
+		if (codAcces.equals("11") || codAcces.equals("16") || codAcces.equals("65") || codAcces.equals("20") || codAcces.equals("13") || codAcces.equals("19")
+				|| codAcces.equals("140"))
 			return true;
 		else
 			return false;

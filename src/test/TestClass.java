@@ -30,8 +30,8 @@ public class TestClass {
 			}
 			
 			User user = new User();
-			user.setName("CSTATACHE");
-			user.setPassword("DRm3rx");
+			user.setName("MCOMAN");
+			user.setPassword("p9n2PW");
 			
 			Account account = new Account(conn);
 			

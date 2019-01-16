@@ -44,11 +44,11 @@
 <script type="text/javascript" src="../scripts/datePicker.js"></script>
 <script type="text/javascript" src="../scripts/mapsBorderou.js"></script>
 
-<style> 
+<style>
 div.map_div {
-    width: 1000px;
-    height: 700px;
-    visibility: hidden;
+	width: 1000px;
+	height: 700px;
+	visibility: hidden;
 }
 </style>
 
@@ -63,6 +63,7 @@ div.map_div {
 		<div class="tagline"></div>
 	</div>
 	</header>
+
 
 	<section id="body" class="width clear"> <jsp:include page="navbar.jsp" /> <section id="content" class="column-right">
 
@@ -85,7 +86,10 @@ div.map_div {
 						<br>
 
 						<tr id='optionsRow'>
-							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" />
+							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" fili="${sessionScope.user.filiala}"
+									tipAcces="${sessionScope.user.tipAcces}" />
+
+
 							</td>
 							<td valign="top" class="option_block">Sofer<br> <br>
 								<div id="listSoferi"></div>
@@ -125,8 +129,7 @@ div.map_div {
 						</tr>
 
 						<tr>
-							<td valign="top" colspan='4'><br>
-							<br>
+							<td valign="top" colspan='4'><br> <br>
 								<div id="sumarActivitate"></div></td>
 						</tr>
 

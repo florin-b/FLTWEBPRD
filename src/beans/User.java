@@ -7,6 +7,7 @@ public class User {
 	private String userName = "";
 	private String filiala = "";
 	private String message = "mes";
+	private String tipAcces = "00";
 
 	public User() {
 
@@ -66,6 +67,14 @@ public class User {
 		}
 
 		return true;
+	}
+
+	public String getTipAcces() {
+		return tipAcces;
+	}
+
+	public void setTipAcces(String tipAcces) {
+		this.tipAcces = tipAcces;
 	}
 
 	@Override

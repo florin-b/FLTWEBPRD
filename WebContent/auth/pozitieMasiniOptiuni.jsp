@@ -77,7 +77,8 @@ div.map_div {
 						<br>
 
 						<tr id='optionsRow'>
-							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" /> <br></td>
+							<td valign="top" class="option_block">Filiala<br> <br> <tagFiliale:filiale name="filiale" id="filiale" fili="${sessionScope.user.filiala}"
+									tipAcces="${sessionScope.user.tipAcces}"/> <br></td>
 							<td valign="top" class="option_block">Masini<br> <br>
 								<div id="listMasina"></div>
 								<div id="checkGroup" style="display: none">

@@ -10,7 +10,7 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import beans.Filiala;
-import beans.UserInfo;
+
 import database.OperatiiFiliala;
 
 public class GetFilialeTag extends SimpleTagSupport {
@@ -18,6 +18,25 @@ public class GetFilialeTag extends SimpleTagSupport {
 	private String name, id;
 
 	private static final String ATTR_TEMPLATE = "%s='%s' ";
+
+	private String fili;
+	private String tipAcces;
+
+	public String getFili() {
+		return fili;
+	}
+
+	public void setFili(String fili) {
+		this.fili = fili;
+	}
+
+	public String getTipAcces() {
+		return tipAcces;
+	}
+
+	public void setTipAcces(String tipAcces) {
+		this.tipAcces = tipAcces;
+	}
 
 	public void doTag() throws JspException, IOException {
 
@@ -54,7 +73,7 @@ public class GetFilialeTag extends SimpleTagSupport {
 	}
 
 	private String getNumeFilialaUser() {
-		String filialaUser = UserInfo.getInstance().getFiliala();
+		String filialaUser = fili;
 
 		if (filialaUser.equals("ORADEA"))
 			filialaUser = "BIHOR";
@@ -80,9 +99,11 @@ public class GetFilialeTag extends SimpleTagSupport {
 
 		List<Filiala> listFiliale;
 
-		if (UserInfo.getInstance().getFiliala().equals("GL_CENTRAL")) {
-			if (UserInfo.getInstance().getTipAcces().equals("20") || UserInfo.getInstance().getTipAcces().equals("13"))
+		if (fili.equals("GL_CENTRAL")) {
+			if (tipAcces.equals("20") || tipAcces.equals("13"))
 				listFiliale = OperatiiFiliala.getListFilialeStatic();
+			else if (tipAcces.equals("140"))
+				listFiliale = OperatiiFiliala.getListFilialeGL();
 			else {
 				Filiala filiala = new Filiala();
 				filiala.setCod("GL90");
@@ -92,10 +113,6 @@ public class GetFilialeTag extends SimpleTagSupport {
 			}
 		} else
 			listFiliale = OperatiiFiliala.getListFiliale(getNumeFilialaUser());
-
-		if ((UserInfo.getInstance().getTipAcces().equals("20") || UserInfo.getInstance().getTipAcces().equals("13"))
-				&& UserInfo.getInstance().getFiliala().equals("GL_CENTRAL"))
-			listFiliale = OperatiiFiliala.getListFilialeStatic();
 
 		return listFiliale;
 	}
