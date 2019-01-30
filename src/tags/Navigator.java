@@ -27,25 +27,27 @@ public class Navigator extends SimpleTagSupport {
 		nd.setText("Acasa");
 		navigationLinks.add(nd);
 
-		nd = new NavigationDetails();
-		nd.setLink(String.format("%s/auth/activitateSoferiOptiuni.jsp", root));
-		nd.setText("Activitate soferi");
-		navigationLinks.add(nd);
+		if (!UserInfo.getInstance().getTipAcces().equals("47")) {
+			nd = new NavigationDetails();
+			nd.setLink(String.format("%s/auth/activitateSoferiOptiuni.jsp", root));
+			nd.setText("Activitate soferi");
+			navigationLinks.add(nd);
 
-		nd = new NavigationDetails();
-		nd.setLink(String.format("%s/auth/pozitieMasiniOptiuni.jsp", root));
-		nd.setText("Pozitie masini");
-		navigationLinks.add(nd);
+			nd = new NavigationDetails();
+			nd.setLink(String.format("%s/auth/pozitieMasiniOptiuni.jsp", root));
+			nd.setText("Pozitie masini");
+			navigationLinks.add(nd);
 
-		nd = new NavigationDetails();
-		nd.setLink(String.format("%s/auth/traseuSoferi.jsp", root));
-		nd.setText("Traseu masina");
-		navigationLinks.add(nd);
+			nd = new NavigationDetails();
+			nd.setLink(String.format("%s/auth/traseuSoferi.jsp", root));
+			nd.setText("Traseu masina");
+			navigationLinks.add(nd);
 
-		nd = new NavigationDetails();
-		nd.setLink(String.format("%s/auth/gpsInactiv.jsp", root));
-		nd.setText("Module GPS inactive");
-		navigationLinks.add(nd);
+			nd = new NavigationDetails();
+			nd.setLink(String.format("%s/auth/gpsInactiv.jsp", root));
+			nd.setText("Module GPS inactive");
+			navigationLinks.add(nd);
+		}
 
 		if (UserInfo.getInstance().getTipAcces().equals("8")) {
 			nd = new NavigationDetails();
@@ -60,10 +62,12 @@ public class Navigator extends SimpleTagSupport {
 		nd.setText("Gestiune tablete");
 		navigationLinks.add(nd);
 
-		nd = new NavigationDetails();
-		nd.setLink(String.format("%s/auth/avarieMasina.jsp", root));
-		nd.setText("Avarie masina");
-		navigationLinks.add(nd);
+		if (!UserInfo.getInstance().getTipAcces().equals("47")) {
+			nd = new NavigationDetails();
+			nd.setLink(String.format("%s/auth/avarieMasina.jsp", root));
+			nd.setText("Avarie masina");
+			navigationLinks.add(nd);
+		}
 
 		nd = new NavigationDetails();
 		nd.setLink(String.format("%s/exit.jsp", root));

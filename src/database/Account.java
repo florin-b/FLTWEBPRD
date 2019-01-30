@@ -29,8 +29,8 @@ public class Account {
 
 		try {
 			callableStatement = conn.prepareCall(storedProcedure);
-			callableStatement.setString(1, user.getName());
-			callableStatement.setString(2, user.getPassword());
+			callableStatement.setString(1, user.getName().trim());
+			callableStatement.setString(2, user.getPassword().trim());
 
 			callableStatement.registerOutParameter(3, java.sql.Types.NUMERIC);
 			callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
@@ -115,7 +115,7 @@ public class Account {
 
 	private boolean isAccesPermited(String codAcces) {
 		if (codAcces.equals("11") || codAcces.equals("16") || codAcces.equals("65") || codAcces.equals("20") || codAcces.equals("13") || codAcces.equals("19")
-				|| codAcces.equals("140"))
+				|| codAcces.equals("140") || codAcces.equals("47"))
 			return true;
 		else
 			return false;

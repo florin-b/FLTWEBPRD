@@ -51,7 +51,7 @@ public class OperatiiTablete {
 
 	}
 
-	private String adaugaCod(String codTableta, String codSofer) throws SQLException {
+	public String adaugaCod(String codTableta, String codSofer) throws SQLException {
 
 		try (Connection conn = DBManager.getProdInstance().getConnection();
 				PreparedStatement stmt = conn.prepareStatement(SqlQueries.invalidateAllCodes(), ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -73,6 +73,8 @@ public class OperatiiTablete {
 
 			innerStmt.close();
 
+		} catch (Exception ex) {
+			System.out.println(ex.toString());
 		}
 
 		return null;

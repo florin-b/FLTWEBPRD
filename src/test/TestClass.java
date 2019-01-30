@@ -2,16 +2,12 @@ package test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
-import beans.Filiala;
 import beans.User;
 import beans.UserInfo;
 import database.Account;
 import database.DBManager;
-import database.OperatiiFiliala;
-import utils.MailOperations;
-import utils.Utils;
+import model.OperatiiTablete;
 
 public class TestClass {
 
@@ -30,8 +26,8 @@ public class TestClass {
 			}
 			
 			User user = new User();
-			user.setName("MCOMAN");
-			user.setPassword("p9n2PW");
+			user.setName("ASTANISOR1");
+			user.setPassword("bzcpZw");
 			
 			Account account = new Account(conn);
 			
@@ -40,7 +36,10 @@ public class TestClass {
 			System.out.println(UserInfo.getInstance());
 			
 		
-
+			//new OperatiiTablete().adaugaCod("354795051177068", "00124278");
+			
+			
+			//System.out.println(new OperatiiTablete().getTableteSoferi("00124278"));
 			
 			
 			

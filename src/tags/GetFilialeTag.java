@@ -100,10 +100,8 @@ public class GetFilialeTag extends SimpleTagSupport {
 		List<Filiala> listFiliale;
 
 		if (fili.equals("GL_CENTRAL")) {
-			if (tipAcces.equals("20") || tipAcces.equals("13"))
+			if (tipAcces.equals("20") || tipAcces.equals("13") || tipAcces.equals("140"))
 				listFiliale = OperatiiFiliala.getListFilialeStatic();
-			else if (tipAcces.equals("140"))
-				listFiliale = OperatiiFiliala.getListFilialeGL();
 			else {
 				Filiala filiala = new Filiala();
 				filiala.setCod("GL90");
