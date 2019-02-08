@@ -99,18 +99,22 @@ public class GetFilialeTag extends SimpleTagSupport {
 
 		List<Filiala> listFiliale;
 
-		if (fili.equals("GL_CENTRAL")) {
-			if (tipAcces.equals("20") || tipAcces.equals("13") || tipAcces.equals("140"))
-				listFiliale = OperatiiFiliala.getListFilialeStatic();
-			else {
-				Filiala filiala = new Filiala();
-				filiala.setCod("GL90");
-				filiala.setNume("GALATI CENTRAL");
-				listFiliale = new ArrayList<>();
-				listFiliale.add(filiala);
-			}
-		} else
-			listFiliale = OperatiiFiliala.getListFiliale(getNumeFilialaUser());
+		if (tipAcces.equals("8")) {
+			listFiliale = OperatiiFiliala.getListFilialeStatic();
+		} else {
+			if (fili.equals("GL_CENTRAL")) {
+				if (tipAcces.equals("20") || tipAcces.equals("13") || tipAcces.equals("140"))
+					listFiliale = OperatiiFiliala.getListFilialeStatic();
+				else {
+					Filiala filiala = new Filiala();
+					filiala.setCod("GL90");
+					filiala.setNume("GALATI CENTRAL");
+					listFiliale = new ArrayList<>();
+					listFiliale.add(filiala);
+				}
+			} else
+				listFiliale = OperatiiFiliala.getListFiliale(getNumeFilialaUser());
+		}
 
 		return listFiliale;
 	}

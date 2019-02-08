@@ -115,7 +115,7 @@ public class Account {
 
 	private boolean isAccesPermited(String codAcces) {
 		if (codAcces.equals("11") || codAcces.equals("16") || codAcces.equals("65") || codAcces.equals("20") || codAcces.equals("13") || codAcces.equals("19")
-				|| codAcces.equals("140") || codAcces.equals("47"))
+				|| codAcces.equals("140") || codAcces.equals("47") || codAcces.equals("8"))
 			return true;
 		else
 			return false;
