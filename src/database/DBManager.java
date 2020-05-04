@@ -65,7 +65,10 @@ public class DBManager {
 		return oracleDS;
 	}	
 	
-	private static DataSource getProdDataSource_Env() {
+	private static DataSource getProdDataSource_env() {
+		
+		System.out.println("prod data");
+		
 		InitialContext initContext;
 		DataSource ds = null;
 		try {

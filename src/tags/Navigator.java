@@ -27,7 +27,7 @@ public class Navigator extends SimpleTagSupport {
 		nd.setText("Acasa");
 		navigationLinks.add(nd);
 
-		if (!UserInfo.getInstance().getTipAcces().equals("47")) {
+		if (!UserInfo.getInstance().getTipAcces().equals("47") && !UserInfo.getInstance().getTipAcces().equals("89")) {
 			nd = new NavigationDetails();
 			nd.setLink(String.format("%s/auth/activitateSoferiOptiuni.jsp", root));
 			nd.setText("Activitate soferi");
@@ -62,7 +62,7 @@ public class Navigator extends SimpleTagSupport {
 		nd.setText("Gestiune tablete");
 		navigationLinks.add(nd);
 
-		if (!UserInfo.getInstance().getTipAcces().equals("47")) {
+		if (!UserInfo.getInstance().getTipAcces().equals("47") && !UserInfo.getInstance().getTipAcces().equals("89")) {
 			nd = new NavigationDetails();
 			nd.setLink(String.format("%s/auth/avarieMasina.jsp", root));
 			nd.setText("Avarie masina");

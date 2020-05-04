@@ -8,10 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 
+
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+
 
 
 
@@ -26,7 +28,7 @@
 
 
 
-<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBhGZckc6WAio9WiiLstQTTpVtAvQ7kIEc'></script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBacSk9khZt7CGoqPe9UZFJGQAjWymAmBg'></script>
 <script type="text/javascript" src='../scripts/markerwithlabel.js'></script>
 
 

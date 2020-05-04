@@ -48,6 +48,10 @@ function() {
 			alert('Data sfarsit interval invalida.');
 			return;
 		}
+		
+		alert(selectedMasina);
+		alert(dataStart);
+		alert(dataStop);
 
 		waitingDialog({});
 

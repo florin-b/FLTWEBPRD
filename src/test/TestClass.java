@@ -1,13 +1,6 @@
 package test;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import beans.User;
-import beans.UserInfo;
-import database.Account;
-import database.DBManager;
-import model.OperatiiTablete;
+import model.SendSmsClient;
 
 public class TestClass {
 
@@ -16,30 +9,10 @@ public class TestClass {
 		try {
 			
 			
-			Connection conn = null;
+			SendSmsClient smsClient = new SendSmsClient();
 
-			try {
-				conn = DBManager.getProdInstance().getConnection();
-			} catch (SQLException e) {
-				
-				
-			}
-			
-			User user = new User();
-			user.setName("ESTOICA1");
-			user.setPassword("Px4h2X");
-			
-			Account account = new Account(conn);
-			
-			account.loginUser(user);
-			
-			System.out.println(UserInfo.getInstance());
-			
-		
-			//new OperatiiTablete().adaugaCod("354795051177068", "00124278");
-			
-			
-			//System.out.println(new OperatiiTablete().getTableteSoferi("00124278"));
+
+			smsClient.sendSms("0742290177", "Salutari de la Arabesque!");
 			
 			
 			

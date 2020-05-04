@@ -353,6 +353,8 @@ public class OperatiiTraseu {
 	}
 
 	public String getTraseuInterval(String nrMasina, String dataStart, String dataStop) throws SQLException {
+		
+		System.out.println(nrMasina + " , " + dataStart + " , " + dataStop);
 
 		String results = "", strTraseu = "";
 
